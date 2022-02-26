@@ -1,0 +1,49 @@
+ <!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="">
+<style>
+h1 {
+text-align:center;
+font-family: Copperplate, Copperplate Gothic Light, fantasy; font-size: 49px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px;
+}
+
+p {text-align: center;}
+
+div {text-align: center;}
+
+body{
+	height: 99vh;
+	text-align: center;
+}
+img{
+	max-width: 25%;
+	height: auto;
+}
+#grad1 {
+	background: #56ab2f;
+	background: -webkit-linear-gradient(to top, #a8e063, #56ab2f);
+	background: linear-gradient(to top, #a8e063, #56ab2f);
+}
+</style>
+<script src=""></script>
+<body id="grad1">
+
+<img src="nextpagelogo.png" alt="nextpagelogo" style="width:100%">
+
+<div class="form-outline mb-4">
+	<form>
+        <input type="username" id="uname" class="form-control form-control-lg"
+              placeholder="Username" /><br><br>
+        <input type="password" id="pword" class="form-control form-control-lg"
+              placeholder="Password" /><br><br>
+			
+		<input type="submit" value="Submit"><br><br>
+	</form>
+	<a href="register.html">No account? Register now!</a>
+</div>
+
+</body>
+</html> 
