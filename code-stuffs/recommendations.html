@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+    <head>
+      <title>NextPage: Recommendations</title>
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        body{
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        /* Float four columns side by side */
+        .column{
+          float: left;
+          width: 25%;
+          padding: 0 10px;
+        }
+        
+        /* Remove extra left and right margins, due to padding */
+        .row {margin: 0 -5px;}
+        
+        /* Clear floats after the columns */
+        .row:after{
+          content: "";
+          display: table;
+          clear: both;
+        }
+        
+        /* Responsive columns */
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+          }
+        }
+        
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          padding: 16px;
+          text-align: center;
+          background-color: #f1f1f1;
+        }
+
+        li {
+          display: inline;
+        }
+        </style>
+    </head>
+    <body>
+
+      <nav class="navbar navbar-expand-sm bg-light">
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li>
+            <a class="nav-link" href="nextpagelogo.png"><img src = "" alt = "logo link to home"></a>
+          </li>
+        </ul>
+    </nav>
+
+    <div style="border:3px; border-style:solid; border-color:#000000;">
+      <h1 style="text-align: center;">NextPage</h1>
+      <h2 style="text-align: center;">Recommendations</h2>
+    </div>
+      <br>
+    <div>
+      <h3 style="text-align: center;">
+        <u>
+          Based on your ratings, these books might be your next read!
+        </u>
+      </h3>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <h3>Book 1</h3>
+            <p>rating</p>
+          </div>
+        </div>
+        
+        <div class="column">
+          <div class="card">
+            <h3>Book 2</h3>
+            <p>rating</p>
+          </div>
+        </div>
+          
+        <div class="column">
+          <div class="card">
+            <h3>Book 3</h3>
+            <p>rating</p>
+          </div>
+        </div>
+          
+        <div class="column">
+          <div class="card">
+            <h3>Book 4</h3>
+            <p>rating</p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="column">
+          <div class="card">
+            <h3>Book 5</h3>
+            <p>rating</p>
+          </div>
+        </div>
+        
+        <div class="column">
+          <div class="card">
+            <h3>Book 6</h3>
+            <p>rating</p>
+          </div>
+        </div>
+          
+        <div class="column">
+          <div class="card">
+            <h3>Book 7</h3>
+            <p>rating</p>
+          </div>
+        </div>
+          
+        <div class="column">
+          <div class="card">
+            <h3>Book 8</h3>
+            <p>rating</p>
+          </div>
+        </div>
+      </div>
+    </body>
+</html>
