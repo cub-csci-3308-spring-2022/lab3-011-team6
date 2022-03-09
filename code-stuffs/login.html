@@ -5,18 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="">
 <style>
-h1 {
-text-align:center;
-font-family: Copperplate, Copperplate Gothic Light, fantasy; font-size: 49px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 23px;
+input[type=username], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
-
-p {text-align: center;}
-
-div {text-align: center;}
 
 body{
 	height: 99vh;
-	text-align: center;
+	text-align:center;
 }
 img{
 	max-width: 10%;
@@ -27,23 +27,38 @@ img{
 	background: -webkit-linear-gradient(to top, #a8e063, #56ab2f);
 	background: linear-gradient(to top, #a8e063, #56ab2f);
 }
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:10%
+}
+
 </style>
 <script src=""></script>
 <body id="grad1">
+<form>
+	<div class="imgcontainer">
+		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
+	</div>
+	<div class="container">
 
-<img src="nextpagelogo.png" alt="nextpagelogo" style="width:100%">
-
-<div class="form-outline mb-4">
-	<form>
-        <input type="username" id="uname" class="form-control form-control-lg"
-              placeholder="Username" /><br><br>
-        <input type="password" id="pword" class="form-control form-control-lg"
-              placeholder="Password" /><br><br>
-			
-		<input type="submit" value="Submit"><br><br>
-	</form>
-	<a href="register.html">No account? Register now!</a>
-</div>
+		<label for="uname"><b>Username</b></label><br>
+		<input type="username" id="uname" 
+			placeholder="Username" required/><br><br>
+		
+		<label for="pword"><b>Password</b></label><br>
+		<input type="password" id="pword"
+			placeholder="Password" required/><br><br>
+		
+		<button type="submit">Login</button><br><br>
+	
+		<a href="register.html">No account? Register now!</a>
+	</div>
+</form>
 
 </body>
 </html> 
