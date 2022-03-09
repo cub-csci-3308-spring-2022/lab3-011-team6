@@ -1,6 +1,9 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <!DOCTYPE html>
     <head>
-      <title>NextPage: Recommendations</title>
+     <title>NextPage: Recommendations</title>
       <style>
         * {
           box-sizing: border-box;
@@ -8,6 +11,12 @@
         
         body{
           font-family: Arial, Helvetica, sans-serif;
+          background: #CEF5CA;
+        }
+        #grad1 {
+	        background: #CEF5CA;
+	        background: -webkit-linear-gradient(to top, #a8e063, #CEF5CA);
+	        background: linear-gradient(to top, #a8e063, #CEF5CA);
         }
         
         /* Float four columns side by side */
@@ -48,19 +57,52 @@
           display: inline;
         }
         </style>
+
+    </head>
+    <body style="background-color:rgb(206, 245, 202);">
+      <link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="../resources/css/my_style.css" rel="stylesheet">
     </head>
     <body>
-
-      <nav class="navbar navbar-expand-sm bg-light">
-        <!-- Links -->
-        <ul class="navbar-nav">
-          <li>
-            <a class="nav-link" href="nextpagelogo.png"><img src = "" alt = "logo link to home"></a>
-          </li>
-        </ul>
+      <nav class="navbar navbar-expand-lg navbar-success bg-success">
+        <a class="navbar-brand" href="home.html">
+            <img class="rounded"
+                src="nextpagelogo.png" alt="" width="40" height="40">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <div class="form-inline my-2 my-lg-0">
+                    <div class="container">
+                        <div class="dropdown">
+                            <a href="#" id="imageDropdown" data-toggle="dropdown">
+                                <img src="http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" width=40" height="40" id="myBtn">
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">User Profile</a>
+                                </li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendations.html">Recommendations</a>
+                                </li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <form id="form">
+                    <input type="search" id="query" name="q" placeholder="Search...">
+                    <button>Search</button>
+                </form>
+            </div>
+        </div>
     </nav>
 
-    <div style="border:3px; border-style:solid; border-color:#000000;">
+    <div>
       <h1 style="text-align: center;">NextPage</h1>
       <h2 style="text-align: center;">Recommendations</h2>
     </div>
@@ -133,3 +175,4 @@
       </div>
     </body>
 </html>
+
