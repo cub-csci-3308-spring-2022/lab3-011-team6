@@ -1,0 +1,7 @@
+function confirmPassword(){
+	var password = getElementById("pword");
+	var confirm = getElementById("conpword");
+	if(password.value != confirm.value){
+
+	}
+}
