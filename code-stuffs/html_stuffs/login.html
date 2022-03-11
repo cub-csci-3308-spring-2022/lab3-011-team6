@@ -1,0 +1,58 @@
+ <!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Login</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="">
+<style>
+input[type=username], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+body{
+	height: 99vh;
+	text-align:center;
+}
+img{
+	max-width: 10%;
+	height: auto;
+}
+button {	
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:10%
+}
+
+</style>
+<script src=""></script>
+<body id="grad1">
+<form action="recommendations.html">
+	<div class="imgcontainer">
+		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
+	</div>
+	<div class="container">
+		<label for="uname"><b>Username</b></label><br>
+		<input type="username" id="uname" 
+			placeholder="Username" required/><br><br>
+		
+		<label for="pword"><b>Password</b></label><br>
+		<input type="password" id="pword"
+			placeholder="Password" required/><br><br>
+		
+		<button href="home.html" type="submit">Login</button><br><br>
+	
+		<a href="register.html">No account? Register now!</a>
+	</div>
+</form>
+
+</body>
+</html> 
