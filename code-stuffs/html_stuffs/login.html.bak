@@ -35,7 +35,7 @@ button {
 </style>
 <script src=""></script>
 <body id="grad1">
-<form action=>
+<form>
 	<div class="imgcontainer">
 		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
 	</div>
@@ -50,7 +50,7 @@ button {
 		
 		<button href="home.html" type="submit">Login</button><br><br>
 	
-		<a href="recommendations.html">No account? Register now!</a>
+		<a href="register.html">No account? Register now!</a>
 	</div>
 </form>
 

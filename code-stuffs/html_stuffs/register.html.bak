@@ -71,7 +71,9 @@ button {
 		<button type="submit">Register</button><br><br>
 	</div>
 </form>
-<script src="js/register.js" ></script>
+	<script>
+		src="/js/register.js"
+	</script>
 
 </body>
 </html> 
