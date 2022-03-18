@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
-<title>Page Title</title>
+<title>Register</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="">
 <style>
@@ -22,12 +22,7 @@ img{
 	max-width: 10%;
 	height: auto;
 }
-#grad1 {
-	background: #CEF5CA;
-	background: -webkit-linear-gradient(to top, #a8e063, #CEF5CA);
-	background: linear-gradient(to top, #a8e063, #CEF5CA);
-}
-button {
+button {	
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -45,7 +40,6 @@ button {
 		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
 	</div>
 	<div class="container">
-
 		<label for="uname"><b>Username</b></label><br>
 		<input type="username" id="uname" 
 			placeholder="Username" required/><br><br>
@@ -54,11 +48,32 @@ button {
 		<input type="password" id="pword"
 			placeholder="Password" required/><br><br>
 		
-		<button type="submit">Login</button><br><br>
-	
-		<a href="register.html">No account? Register now!</a>
+		<label for="conpword"><b>Confirm Password</b></label><br>
+		<input onkeyup="confirmPassword()" type="password" id="conpword"
+			placeholder="Confirm Password" required/><br><br>
+			
+		  <p>Please select genres you are interested in:</p>
+			<input type="checkbox" id="genre1" name="genres" value="HTML">
+			<label for="genre1">Horror</label><br>
+			
+			<input type="checkbox" id="genre2" name="genres" value="HTML">
+			<label for="genre2">Mystery</label><br>
+			
+			<input type="checkbox" id="genre3" name="genres" value="HTML">
+			<label for="genre3">Fantasy</label><br>
+			
+			<input type="checkbox" id="genre4" name="genres" value="HTML">
+			<label for="genre4">Romance</label><br>
+			
+			<input type="checkbox" id="genre5" name="genres" value="HTML">
+			<label for="genre5">Sci-Fi</label><br>
+			
+		<button type="submit">Register</button><br><br>
 	</div>
 </form>
+	<script>
+		src="/js/register.js"
+	</script>
 
 </body>
 </html> 
