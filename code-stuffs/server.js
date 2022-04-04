@@ -21,7 +21,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
 app.get('/register', function(req, res) {
-    res.render('html_stuffs/register.ejs',{
+    res.render('register',{
     })
 });
 app.post('/register', function(req, res) {
