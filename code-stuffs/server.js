@@ -21,7 +21,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
 app.get('/register', function(req, res) {
-    res.render('register',{
+    res.render('register.ejs',{
+        error_msg: ""
     })
 });
 app.post('/register', function(req, res) {
@@ -40,6 +41,9 @@ app.post('/register', function(req, res) {
         if(info!= {}){
             exists = true;
             console.log("EXISTS");
+            res.render('/register',{
+                error_msg: "Username " + username + " already exists.",
+            })
         }
         else{
             console.log("NO EXIST");
@@ -59,7 +63,7 @@ app.post('/register', function(req, res) {
             ]);
         })
         .then(info => {
-            res.render('../html_stuffs/login.html',{
+            res.render('/login',{
                     //my_title: "Registration",
                 })
         })
