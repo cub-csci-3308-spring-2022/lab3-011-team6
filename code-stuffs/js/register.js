@@ -1,11 +1,18 @@
 function confirmPassword(){
 	var password = document.getElementById("pword");
 	var confirm = document.getElementById("conpword");
-	if(password.value != confirm.value){
-		confirm.setCustomValidity("Passwords do not match");
+	var condition = password.value == confirm.value;
+	if(condition){
+		console.log("Passwords Match!");
+		var but = document.getElementById("button");
+		but.disabled = false;
 	}
 	else{
-		confirm.setCustomValidity("Passwords match!")
+		//var label = document.getElementById("buttonlabel");
+		//label.style.color = "red";
+		//label.innerHTML = "Passwords do not match!";
+		//console.log("Passwords do not match!");
+		alert("Passwords do not match!");
 	}
 	password.onchange = confirmPassword;
 	confirm.onkeyup = confirmPassword;
