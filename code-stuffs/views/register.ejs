@@ -35,10 +35,10 @@
 		width: 10%
 	}
 </style>
-<script src="../js/register.js"></script>
- 
-
-<body id="grad1">
+<script src="../js/scripts.js"></script>
+<body id="grad1" <%if(message!= ''){ %>
+	onload="myAlert(<%-message%>)"
+<%}%>>
 
 	<form action="/register" method="post">
 		<div class="imgcontainer">
@@ -75,7 +75,6 @@
 			<label for="button" id="buttonlabel"></label>
 		</div>
 	</form>
-	<script src="../js/register.js"></script>
 
 </body>
 
