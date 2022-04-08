@@ -46,10 +46,10 @@
 		</div>
 		<div class="container">
 			<label for="uname"><b>Username</b></label><br>
-			<input type="username" id="uname" placeholder="Username" required /><br><br>
+			<input type="username" id="uname" name = "uname" placeholder="Username" required /><br><br>
 
 			<label for="pword"><b>Password</b></label><br>
-			<input type="password" id="pword" placeholder="Password" required /><br><br>
+			<input type="password" id="pword" name = "pword" placeholder="Password" required /><br><br>
 
 			<label for="conpword"><b>Confirm Password</b></label><br>
 			<input type="password" id="conpword" placeholder="Confirm Password"
@@ -72,7 +72,7 @@
 			<label for="genre5">Sci-Fi</label><br>
 
 			<button type="submit" id="button" disabled>Register</button><br><br>
-			<label for="button" id="buttonlabel"><%= error_msg %></label>
+			<label for="button" id="buttonlabel"></label>
 		</div>
 	</form>
 	<script src="../js/register.js"></script>

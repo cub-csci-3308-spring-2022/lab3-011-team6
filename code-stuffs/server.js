@@ -10,7 +10,7 @@ var pgp = require('pg-promise')();
 const dbConfig = {
 	host: 'db',
 	port: 5432,
-	database: 'project_db',
+	database: 'users_db',
 	user: 'postgres',
 	password: 'pwd'
 };
@@ -20,17 +20,26 @@ var db = pgp(dbConfig);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
+app.get('/login', function(req, res) {
+    res.render('login.ejs',{
+    })
+});
+app.post('/login', function(req, res) {
+    var username = req.body.uname;
+    var pass = req.body.pword;
+
+    var select = "SELECT * FROM users_db WHERE username = '" + username + "' AND password = '" + pass + "';";
+});
 app.get('/register', function(req, res) {
     res.render('register.ejs',{
         error_msg: ""
     })
 });
 app.post('/register', function(req, res) {
-	var username = req.body.username;
+	var username = req.body.uname;
 	var pass = req.body.pword;
 
-    var exists = false;
-    var select = 'SELECT * FROM users_db WHERE username = ' + username + ';';
+    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\';';
 	var insert_statement = 'INSERT INTO users_db (username, pass) VALUES (\'' + username + '\',\'' +  pass + '\');'; 
 	db.task('get-everything', task => {
         return task.batch([
@@ -38,39 +47,27 @@ app.post('/register', function(req, res) {
         ]);
     })
     .then(info => {
-        if(info!= {}){
-            exists = true;
-            console.log("EXISTS");
-            res.render('/register',{
-                error_msg: "Username " + username + " already exists.",
+        if(info==""){
+            console.log("NO EXIST");
+            console.log(info);
+            db.task('get-everything', task => {
+                return task.batch([
+                    task.any(insert_statement),
+                ]);
             })
+            alert("Account created successfully!")
         }
         else{
-            console.log("NO EXIST");
+            console.log("EXISTS");
+            console.log(info);
+            alert("Please choose another username")
+            res.render('register.ejs',{
+            })
         }
-    	//res.render('../html_stuffs/login.html',{
-				//my_title: "Home Page",
-			//})
     })
     .catch(err => {
             console.log('error', err);
     });
-
-    if(!exists){    //If there are no other users with the same username
-        db.task('get-everything', task => {
-            return task.batch([
-                task.any(insert_statement),
-            ]);
-        })
-        .then(info => {
-            res.render('/login',{
-                    //my_title: "Registration",
-                })
-        })
-        .catch(err => {
-                console.log('error', err);
-        });
-    }
 });
 app.listen(3000);
 console.log('3000 is the magic port');
