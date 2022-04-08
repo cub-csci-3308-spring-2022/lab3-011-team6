@@ -8,11 +8,11 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var pgp = require('pg-promise')();
 
 const dbConfig = {
-	host: 'db',
-	port: 5432,
-	database: 'project_db',
-	user: 'postgres',
-	password: 'pwd'
+    host: 'db',
+    port: 5432,
+    database: 'project-db',
+    user: 'postgres',
+    password: 'pwd'
 };
 
 var db = pgp(dbConfig);
@@ -20,53 +20,61 @@ var db = pgp(dbConfig);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
-app.get('/register', function(req, res) {
-    res.render('register',{
+app.get('/login', function (req, res) {
+    res.render('login.ejs', {
+        message: "",
     })
 });
-app.post('/register', function(req, res) {
-	var username = req.body.username;
-	var pass = req.body.pword;
+app.post('/login', function (req, res) {
+    var username = req.body.uname;
+    var pass = req.body.pword;
 
-    var exists = false;
-    var select = 'SELECT * FROM users_db WHERE username = ' + username + ';';
-	var insert_statement = 'INSERT INTO users_db (username, pass) VALUES (\'' + username + '\',\'' +  pass + '\');'; 
-	db.task('get-everything', task => {
+    var select = "SELECT * FROM users_db WHERE username = '" + username + "' AND password = '" + pass + "';";
+});
+app.get('/register', function (req, res) {
+    res.render('register.ejs', {
+        message: "",
+    })
+});
+app.post('/register', function (req, res) {
+    var username = req.body.uname;
+    var pass = req.body.pword;
+
+    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\';';
+    var insert_statement = 'INSERT INTO users_db (username, pass) VALUES (\'' + username + '\',\'' + pass + '\');';
+    db.task('get-everything', task => {
         return task.batch([
             task.any(select),
         ]);
     })
-    .then(info => {
-        if(info!= {}){
-            exists = true;
-            console.log("EXISTS");
-        }
-        else{
-            console.log("NO EXIST");
-        }
-    	//res.render('../html_stuffs/login.html',{
-				//my_title: "Home Page",
-			//})
-    })
-    .catch(err => {
-            console.log('error', err);
-    });
-
-    if(!exists){    //If there are no other users with the same username
-        db.task('get-everything', task => {
-            return task.batch([
-                task.any(insert_statement),
-            ]);
-        })
         .then(info => {
-            res.render('../html_stuffs/login.html',{
-                    //my_title: "Registration",
+            if (info == "") {
+                //console.log("NO EXIST");
+                //console.log(info);
+                db.task('get-everything', task => {
+                    return task.batch([
+                        task.any(insert_statement),
+                    ]);
                 })
+                res.render('login.ejs', {
+                    message: "'Account Created Sucessfully!'"
+                })
+            }
+            else {
+                //console.log("EXISTS");
+                //console.log(info);
+                res.render('register.ejs', {
+                    message: "'Account with that username already exists, try again.'"
+                })
+            }
         })
         .catch(err => {
-                console.log('error', err);
+            console.log('error', err);
         });
-    }
+});
+app.get('/home', function (req, res) {
+    res.render('home.ejs', {
+    })
 });
 
 app.get('/recommendations', function(req, res) {
