@@ -114,64 +114,28 @@
         </u>
       </h3>
       </div>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            <h3>Book 1</h3>
-            <p>rating</p>
-          </div>
-        </div>
-        
-        <div class="column">
-          <div class="card">
-            <h3>Book 2</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 3</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 4</h3>
-            <p>rating</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            <h3>Book 5</h3>
-            <p>rating</p>
-          </div>
-        </div>
-        
-        <div class="column">
-          <div class="card">
-            <h3>Book 6</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 7</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 8</h3>
-            <p>rating</p>
-          </div>
-        </div>
-      </div>
+      
+      /*Below this is the function to create multiple cards*/
+      <div id="products-cards-container"></div>
+      
+      <script>
+        const container = document.getElementById('products-cards-container');
+
+        function returnCards(valuesCards) {
+        return " <div class = \"card\">" + valuesCards.map(valuesCard => `
+        <div>
+            <div class="product-header">
+            <h4>${valuesCard.title}</h4>
+            </div>
+            <div class="product-content">
+            <p>${valuesCard.rating}</p>
+            </div>
+            
+        </div>`).join('') + "</div>";
+        }
+
+        container.innerHTML = returnCards(valuesCards);
+      </script>
+      
     </body>
 </html>

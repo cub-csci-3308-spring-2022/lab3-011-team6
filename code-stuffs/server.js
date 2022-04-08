@@ -72,5 +72,37 @@ app.post('/register', function(req, res) {
         });
     }
 });
+app.get('/recommendations', function(req, res) {
+    var valuesCards = [];
+    var genre = 'SELECT categories FROM users_database WHERE user == ' + curr_user + ';';
+	var books =  'SELECT title FROM google_books_dataset WHERE categories == ' + genre + ' ORDER BY rating DESC 10;';
+	var ratings = 'Select averagRating FROM googgle_books_dataset ORDER BY rating DESC 10;;';
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(genre),
+            task.any(books),
+            task.any(ratings)
+        ]);
+    })
+    .then(info => {
+    	res.render('/recommendations',{
+				my_title: "Home Page",
+				data: info[0], // Return the color options
+				color: info[1][0].hex_value, // Return the color choice
+				color_msg: info[1][0].color_msg, // Return the color message
+			})
+        for(let i = 0; i < books.length; i++){
+            var array = {title: books[i], rating: ratings[i]};
+            valuesCards.push(array);
+        }
+            
+        
+    })
+    .catch(err => {
+        console.log('error', err);
+    });
+
+});
+
 app.listen(3000);
 console.log('3000 is the magic port');
