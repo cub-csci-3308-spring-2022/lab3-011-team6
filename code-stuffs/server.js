@@ -68,5 +68,11 @@ app.post('/register', function(req, res) {
         });
     }
 });
+
+app.get('/recommendations', function(req, res) {
+    res.render('recommendations',{
+    })
+});
+
 app.listen(3000);
 console.log('3000 is the magic port');
