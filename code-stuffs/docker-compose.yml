@@ -16,18 +16,19 @@ services:
   # Note that the name `db` also becomes the hostname of the postgres container.
   # For more details see `server.js`.
   db:
-    image: postgres
+    image: "postgres"
     # Environment variables to setup postgres. Note that this is not secure, and
     # in production (or your project), you should store these in a different
     # file [5] or use secrets [6]. In no case should such files be uploaded to GitHub.
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pwd
-      POSTGRES_DB: project_db
+    env_file: .env
+    #environment:
+     # POSTGRES_USER: postgres
+     # POSTGRES_PASSWORD: pwd
+     # POSTGRES_DB: users_db
     expose:
       - "5432"                                  # We need only expose port `5432` internally to node (not the host)
     volumes:
-      - labwebsite-db:/var/lib/postgresql/data  # Creates a docker managed volume to persist your data.
+      - project-db:/var/lib/postgresql/data  # Creates a docker managed volume to persist your data.
       - ./init_data:/docker-entrypoint-initdb.d # Binds ./init_data to docker-entrypoint-initdb.d.
                                                 #   The postgres image will run any files in this directory on startup,
                                                 #   in our case the file `init_data/create.sql`
@@ -58,4 +59,4 @@ services:
 # run `docker-compose rm -v`. Note that this will remove ALL of your data, so
 # be extra sure you've made a stable backup somewhere.
 volumes:
-  labwebsite-db: {}
+  project-db: {}
