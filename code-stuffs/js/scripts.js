@@ -16,3 +16,6 @@ function confirmPassword(){
 	password.onchange = confirmPassword;
 	confirm.onkeyup = confirmPassword;
 }
+function myAlert(message){
+	alert(message);
+}
