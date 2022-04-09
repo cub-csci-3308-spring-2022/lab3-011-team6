@@ -115,27 +115,44 @@
       </h3>
       </div>
       
-      /*Below this is the function to create multiple cards*/
-      <div id="products-cards-container"></div>
-      
-      <script>
-        const container = document.getElementById('products-cards-container');
+      <!-- Below this is the function to create multiple cards -->
+    <div id="products-cards-container"></div>
+          
+    <script>
+      const valuesCards = [{
+          title: 'title 1',
+          rating: '4.3',
+      },
+      {
+          title: 'title 2',
+          rating: '3.6'
+      },
+      {
+          title: 'title3',
+          rating: '2.0'
+      },
+      {
+          title: 'hello there',
+          rating: 'general kenobi'
+      },
+      ]
 
-        function returnCards(valuesCards) {
-        return " <div class = \"card\">" + valuesCards.map(valuesCard => `
-        <div>
-            <div class="product-header">
-            <h4>${valuesCard.title}</h4>
-            </div>
-            <div class="product-content">
-            <p>${valuesCard.rating}</p>
-            </div>
-            
-        </div>`).join('') + "</div>";
-        }
+      const container = document.getElementById('products-cards-container');
 
-        container.innerHTML = returnCards(valuesCards);
-      </script>
-      
+      function returnCards(valuesCards) {
+      return " <div class = \"card\">" + valuesCards.map(valuesCard => `
+      <div>
+          <div class="product-header">
+          <h4>${valuesCard.title}</h4>
+          </div>
+          <div class="product-content">
+          <p>${valuesCard.rating}</p>
+          </div>
+          
+      </div>`).join('') + "</div>";
+      }
+
+      container.innerHTML = returnCards(valuesCards);
+    </script>
     </body>
 </html>
