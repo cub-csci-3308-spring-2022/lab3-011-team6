@@ -81,15 +81,12 @@ app.get('/home', function (req, res) {
             task.any(query)
         ]);
     })
-
-    console.log("DID QUERY")
-
     .then (info => {
         console.log("INFO")
         console.log(info)
         res.render('home.ejs', {
             my_title: "Home Page",
-            data:info[0]
+            items:info[0]
         })
     })
     .catch(err => {
@@ -97,8 +94,15 @@ app.get('/home', function (req, res) {
         console.log(err)
         res.render('home.ejs', {
             my_title: "Home Page",
-            data: ''
+            items: ''
         })
+    });
+});
+
+app.get('/home_temp', function (req, res) {
+    res.render('home.ejs', {
+        my_title: "Home Page",
+        data:info[0]
     })
 });
 

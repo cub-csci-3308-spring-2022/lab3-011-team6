@@ -1,0 +1,147 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
+<!DOCTYPE html>
+    <head>
+     <title>NextPage: Recommendations</title>
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        body{
+          font-family: Arial, Helvetica, sans-serif;
+          background: #CEF5CA;
+        }
+        #grad1 {
+	        background: #CEF5CA;
+	        background: -webkit-linear-gradient(to top, #a8e063, #CEF5CA);
+	        background: linear-gradient(to top, #a8e063, #CEF5CA);
+        }
+        
+        /* Float four columns side by side */
+        .column{
+          float: left;
+          width: 25%;
+          padding: 0 10px;
+        }
+        
+        /* Remove extra left and right margins, due to padding */
+        .row {margin: 0 -5px;}
+        
+        /* Clear floats after the columns */
+        .row:after{
+          content: "";
+          display: table;
+          clear: both;
+        }
+        
+        /* Responsive columns */
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+          }
+        }
+        
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          padding: 16px;
+          text-align: center;
+          background-color: #f1f1f1;
+        }
+        li {
+          display: inline;
+        }
+        </style>
+
+    </head>
+    <body style="background-color:rgb(206, 245, 202);">
+      <link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="../resources/css/my_style.css" rel="stylesheet">
+    </head>
+    <body>
+      <nav class="navbar navbar-expand-lg navbar-success bg-success">
+        <a class="navbar-brand" href="home.html">
+            <img class="rounded"
+                src="nextpagelogo.png" alt="" width="40" height="40">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <div class="form-inline my-2 my-lg-0">
+                    <div class="container">
+                        <div class="dropdown">
+                            <a href="#" id="imageDropdown" data-toggle="dropdown">
+                                <img src="http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" width=40" height="40" id="myBtn">
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="home.html">Home</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">User Profile</a>
+                                </li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="recommendations.html">Recommendations</a>
+                                </li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <form id="form">
+                    <input type="search" id="query" name="q" placeholder="Search...">
+                    <button>Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div>
+      <h1 style="text-align: center;">NextPage</h1>
+      <h2 style="text-align: center;">Home</h2>
+    </div>
+      <br>
+      
+      <!-- Below this is the function to create multiple cards -->
+    <div id="products-cards-container"></div>
+          
+    <script>
+      const valuesCards = [
+      {
+          title: 'title 1',
+          genre: 'fantasy'
+      },
+      {
+          title: 'title 2',
+          genre: 'sci fi'
+      },
+      {
+          title: 'title3',
+          genre: 'romance'
+      },
+      {
+          title: 'hello there',
+          genre: 'nonfiction'
+      }]
+
+      const container = document.getElementById('products-cards-container');
+      function returnCards(valuesCards) {
+      return valuesCards.map(valuesCard => `
+          <div class="card">
+            <h4 class="card-title">${valuesCard.title}</h4>
+            <div class="main-description">${valuesCard.genre}</div>
+          </div>
+      `).join('') + "</div>";
+      }
+
+      container.innerHTML = returnCards(valuesCards);
+    </script>
+    </body>
+</html>

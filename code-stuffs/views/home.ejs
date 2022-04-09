@@ -59,39 +59,9 @@
             <h1 style="text-align:center">Home</h1> <br><br>
             <div class="container">
                 <div class="row blog">
-                    <div class="col-md-12">
-                        <div id="blogCarousel" class="carousel slide" data-ride="carousel">
-
-                            <ol class="carousel-indicators">
-                                <li data-target="#blogCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#blogCarousel" data-slide-to="1"></li>
-                            </ol>
-
-                            <!--carousel-->
-                            <div class="carousel-inner">
-
-                                <div class="carousel-item active">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <a href="#">
-                                                <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1525200825l/40019010._SY475_.jpg"
-                                                    alt="Image" style="max-width:100%;">
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="#">
-                                                <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387124618l/9361589.jpg"
-                                                    alt="Image" style="max-width:100%;">
-                                            </a>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <a href="#">
-                                                <img src="https://images-na.ssl-images-amazon.com/images/I/514aE49swxL._SX330_BO1,204,203,200_.jpg"
-                                                    alt="Image" style="max-width:100%;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                             
+                    <div class="col-md-12">       
+                        
+        Top Books:
+        <%- include('reviews_home'); -%>
     </body>
 </html>

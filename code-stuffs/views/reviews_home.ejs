@@ -1,15 +1,12 @@
 <% if (items) { %>
 
   <!-- Creating cards -->
-  <% var cards = ''; %>
 
   <% items.forEach(item=> { %>
-    cards += "<div class='card'>"+
-                "<div class='card-body'>"+
-                  "Title: = <%- item.title %> + "</a>"
-                "</div>"+
-              "</div>";
+    <div class='card'>
+        <div class='card-body'>
+            Title: <%- item.title %> </a>
+        </div>
+      </div>
   <% }) %>
-  
-  <%- cards %> 
 <% } %>
