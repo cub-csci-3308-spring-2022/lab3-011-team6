@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Register</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="">
+<style>
+	input[type=username],
+	input[type=password] {
+		width: 50%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+	}
+
+	body {
+		height: 99vh;
+		text-align: center;
+	}
+
+	img {
+		max-width: 10%;
+		height: auto;
+	}
+
+	button {
+		background-color: #04AA6D;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		cursor: pointer;
+		width: 10%
+	}
+</style>
+<script src="../js/scripts.js"></script>
+<body id="grad1" <%if(message!= ''){ %>
+	onload="myAlert(<%-message%>)"
+<%}%>>
+
+	<form action="/register" method="post">
+		<div class="imgcontainer">
+			<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
+		</div>
+		<div class="container">
+			<label for="uname"><b>Username</b></label><br>
+			<input type="username" id="uname" name = "uname" placeholder="Username" required /><br><br>
+
+			<label for="pword"><b>Password</b></label><br>
+			<input type="password" id="pword" name = "pword" placeholder="Password" required /><br><br>
+
+			<label for="conpword"><b>Confirm Password</b></label><br>
+			<input type="password" id="conpword" placeholder="Confirm Password"
+				required onchange="confirmPassword()"/><br><br>
+
+			<p>Please select genres you are interested in:</p>
+			<input type="checkbox" id="genre1" name="genres" value="HTML">
+			<label for="genre1">Horror</label><br>
+
+			<input type="checkbox" id="genre2" name="genres" value="HTML">
+			<label for="genre2">Mystery</label><br>
+
+			<input type="checkbox" id="genre3" name="genres" value="HTML">
+			<label for="genre3">Fantasy</label><br>
+
+			<input type="checkbox" id="genre4" name="genres" value="HTML">
+			<label for="genre4">Romance</label><br>
+
+			<input type="checkbox" id="genre5" name="genres" value="HTML">
+			<label for="genre5">Sci-Fi</label><br>
+
+			<button type="submit" id="button" disabled>Register</button><br><br>
+			<label for="button" id="buttonlabel"></label>
+		</div>
+	</form>
+
+</body>
+
+</html>
