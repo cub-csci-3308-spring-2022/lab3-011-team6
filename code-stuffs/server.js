@@ -72,9 +72,24 @@ app.post('/register', function (req, res) {
             console.log('error', err);
         });
 });
+
 app.get('/home', function (req, res) {
-    res.render('home.ejs', {
-    })
-});
+    query = 'SELECT * FROM books_db';
+    db.any(query)
+        .then(function (rows){
+            console.log(rows);
+            res.render('home.ejs', {
+                items: query
+            })
+        })
+        .catch(function (rows){
+            console.log(rows);
+            res.render('home.ejs', {
+                items: query
+            })
+        })
+    }
+);
+
 app.listen(3000);
 console.log('3000 is the magic port');
