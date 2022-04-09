@@ -77,12 +77,14 @@ app.get('/home', function (req, res) {
     query = 'SELECT * FROM books_db';
     db.any(query)
         .then(function (rows){
+            console.log("ROWS, THEN")
             console.log(rows);
             res.render('home.ejs', {
                 items: query
             })
         })
         .catch(function (rows){
+            console.log("ROWS, CATCH")
             console.log(rows);
             res.render('home.ejs', {
                 items: query
