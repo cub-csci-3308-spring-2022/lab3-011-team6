@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //Create Database Connection
 var pgp = require('pg-promise')();
-
+var username = "";
 const dbConfig = {
     host: 'db',
     port: 5432,
@@ -25,12 +25,11 @@ app.get('/login', function (req, res) {
         message: "",
     })
 });
-app.post('/login', function (req, res) {
+app.get('/home', function (req, res) {
     var username = req.body.uname;
-    var pass = req.body.pword;
-
-    var select = "SELECT * FROM users_db WHERE username = '" + username + "' AND password = '" + pass + "';";
-});
+    res.render('home.ejs', {
+        username: username,
+    })});
 app.get('/register', function (req, res) {
     res.render('register.ejs', {
         message: "",
@@ -49,8 +48,6 @@ app.post('/register', function (req, res) {
     })
         .then(info => {
             if (info == "") {
-                //console.log("NO EXIST");
-                //console.log(info);
                 db.task('get-everything', task => {
                     return task.batch([
                         task.any(insert_statement),
@@ -61,8 +58,6 @@ app.post('/register', function (req, res) {
                 })
             }
             else {
-                //console.log("EXISTS");
-                //console.log(info);
                 res.render('register.ejs', {
                     message: "'Account with that username already exists, try again.'"
                 })
@@ -71,10 +66,6 @@ app.post('/register', function (req, res) {
         .catch(err => {
             console.log('error', err);
         });
-});
-app.get('/home', function (req, res) {
-    res.render('home.ejs', {
-    })
 });
 app.listen(3000);
 console.log('3000 is the magic port');
