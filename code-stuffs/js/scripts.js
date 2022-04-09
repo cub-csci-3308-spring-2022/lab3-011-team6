@@ -8,12 +8,14 @@ function confirmPassword(){
 		but.disabled = false;
 	}
 	else{
-		//var label = document.getElementById("buttonlabel");
-		//label.style.color = "red";
-		//label.innerHTML = "Passwords do not match!";
-		//console.log("Passwords do not match!");
-		alert("Passwords do not match!");
+		var label = document.getElementById("buttonlabel");
+		label.style.color = "red";
+		label.innerHTML = "Passwords do not match!";
+		console.log("Passwords do not match!");
 	}
 	password.onchange = confirmPassword;
 	confirm.onkeyup = confirmPassword;
+}
+function myAlert(message){
+	alert(message);
 }

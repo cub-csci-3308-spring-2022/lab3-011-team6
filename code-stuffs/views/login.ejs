@@ -33,9 +33,12 @@ button {
 }
 
 </style>
-<script src=""></script>
-<body id="grad1">
-<form action="recommendations.html">
+<script src="../js/scripts.js"></script>
+
+<body id="grad1"  <%if(message!= ''){ %>
+	onload="myAlert(<%-message%>)"
+<%}%>>
+<form action="home">
 	<div class="imgcontainer">
 		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
 	</div>
@@ -48,9 +51,9 @@ button {
 		<input type="password" id="pword"
 			placeholder="Password" required/><br><br>
 		
-		<button href="home.html" type="submit">Login</button><br><br>
+		<button href="home" type="submit">Login</button><br><br>
 	
-		<a href="register.html">No account? Register now!</a>
+		<a href="register">No account? Register now!</a>
 	</div>
 </form>
 
