@@ -72,9 +72,39 @@ app.post('/register', function (req, res) {
             console.log('error', err);
         });
 });
+
 app.get('/home', function (req, res) {
+    var query = 'SELECT * FROM books_db;';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(query)
+        ]);
+    })
+    .then (info => {
+        console.log("INFO")
+        console.log(info)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items:info[0]
+        })
+    })
+    .catch(err => {
+        console.log("ERR")
+        console.log(err)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/home_temp', function (req, res) {
     res.render('home.ejs', {
+        my_title: "Home Page",
+        data:info[0]
     })
 });
+
 app.listen(3000);
 console.log('3000 is the magic port');
