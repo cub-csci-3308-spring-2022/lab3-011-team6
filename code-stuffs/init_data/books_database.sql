@@ -1,16 +1,16 @@
--- CREATE DATABASE books_db;
--- LOAD DATA INFILE '/init_data/google_books_dataset.csv'
--- INTO TABLE books_db
--- FIELDS TERMINATED BY ','
--- ENCLOSED BY '"'
--- LINES TERMINATED BY '\n';
-
-CREATE TABLE IF NOT EXISTS books_db (
-    title VARCHAR(30) PRIMARY KEY,
-    category VARCHAR(30)
-);
-
-INSERT INTO books_db(title, category)
-VALUES ('Inward Journey', 'Medical'),
-('The Boston Directory', 'Boston')
-;
+CREATE TABLE books_db (
+  id SERIAL,
+  title VARCHAR(255),
+  authors VARCHAR(255),
+  language VARCHAR(255),
+  categories VARCHAR(255),
+  averageRating VARCHAR(255),
+  maturityRating VARCHAR(255),
+  publisher VARCHAR(255),
+  publishedDate VARCHAR(255),
+  PRIMARY KEY (id)
+)
+COPY books_db(id,title,authors,language,categories,averageRating,maturityRating,publisher,publishedDate)
+FROM 'google_books_dataset.csv'
+DELIMITER ','
+CSV HEADER;

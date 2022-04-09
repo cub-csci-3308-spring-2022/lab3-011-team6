@@ -74,24 +74,33 @@ app.post('/register', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
-    query = 'SELECT * FROM books_db';
-    db.any(query)
-        .then(function (rows){
-            console.log("ROWS, THEN")
-            console.log(rows);
-            res.render('home.ejs', {
-                items: query
-            })
+    var query = 'SELECT * FROM books_db;';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(query)
+        ]);
+    })
+
+    console.log("DID QUERY")
+
+    .then (info => {
+        console.log("INFO")
+        console.log(info)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            data:info[0]
         })
-        .catch(function (rows){
-            console.log("ROWS, CATCH")
-            console.log(rows);
-            res.render('home.ejs', {
-                items: query
-            })
+    })
+    .catch(err => {
+        console.log("ERR")
+        console.log(err)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            data: ''
         })
-    }
-);
+    })
+});
 
 app.listen(3000);
 console.log('3000 is the magic port');
