@@ -78,33 +78,62 @@ app.get('/home', function (req, res) {
 });
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
-    var genre = 'SELECT genres FROM users_db WHERE username == ' + username + ';';
-	var books =  'SELECT title FROM books_db WHERE categories IN ' + genre + ' ORDER BY rating DESC 10;';
-	var ratings = 'Select averagRating FROM googgle_books_dataset ORDER BY rating DESC 10;';
-	db.task('get-everything', task => {
-        return task.batch([
-            task.any(genre),
-            task.any(books),
-            task.any(ratings)
-        ]);
-    })
-    .then(info => {
-    	res.render('/recommendations',{
-				my_title: "Recommendations Page",
-				data: info[0], // Return the color options
-				color: info[1][0].hex_value, // Return the color choice
-				color_msg: info[1][0].color_msg, // Return the color message
-			})
-        for(let i = 0; i < books.length; i++){
-            var array = {title: books[i], rating: ratings[i]};
-            valuesCards.push(array);
-        }
+    if(typeof(username) !== 'undefined'){
+        var genre = 'SELECT genres FROM users_db WHERE username == ' + username + ';';
+        var books =  'SELECT title FROM books_db WHERE categories IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
+        var ratings = 'SELECT averagRating FROM books_db WHERE categries IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
+    
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(genre),
+                task.any(books),
+                task.any(ratings)
+            ]);
+        })
+
+        .then(info => {
+            for(let i = 0; i < books.length; i++){
+                var array = {title: books[i], rating: ratings[i]};
+                valuesCards.push(array);
+            }
+            res.render('recommendations.ejs',{
+                    my_title: "Recommendations Page",
+                    valuesCards: valuesCards,
+                })
             
-        
-    })
-    .catch(err => {
-        console.log('error', err);
-    });
+        })
+
+        .catch(err => {
+            console.log('error', err);
+        });
+    }
+    else{
+        var books = 'SELECT title FROM books_db ORDER BY averageRating DESC LIMIT 10;';
+        var ratings = 'SELECT averageRating FROM books_db ORDER BY averageRating DESC LIMIT 10;';
+    
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(books),
+                task.any(ratings)
+            ]);
+        })
+
+        .then(info => {
+            for(let i = 0; i < books.length; i++){
+                var array = {title: books[i], rating: ratings[i]};
+                valuesCards.push(array);
+            }
+            res.render('recommendations.ejs',{
+                    my_title: "Recommendations Page",
+                    valuesCards: valuesCards,
+                })
+            
+        })
+
+        .catch(err => {
+            console.log('error', err);
+        });
+    }
 
 });
 

@@ -3,5 +3,15 @@ CREATE TABLE IF NOT EXISTS users_db
 (
     username VARCHAR (30) PRIMARY KEY,
     pass VARCHAR (16),
-    genres INT[]
-)
+    genres VARCHAR[]
+);
+
+CREATE TABLE IF NOT EXISTS books_db(
+    title VARCHAR(30) PRIMARY KEY,
+    category VARCHAR(30)
+    averageRating FLOAT()
+);
+
+INSERT INTO books_db(title, category, averageRating)
+VALUSE('Inward Journey', 'Medical', 3),
+('The Boston Directory', 'Boston'), 4.5;
