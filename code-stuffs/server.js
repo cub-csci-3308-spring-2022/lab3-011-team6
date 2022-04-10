@@ -108,7 +108,6 @@ app.get('/home', function (req, res) {
     });
 });
 
-<<<<<<< HEAD
 app.get('/recommendations', function(req, res) {
     res.render('recommendations',{
     })
@@ -143,7 +142,5 @@ app.get('/recommendations/genre', function(req,res) {
 			})
 		});
 });
-=======
->>>>>>> 34b6405260f007351b467f3c960369daec5f015e
 app.listen(3000);
 console.log('3000 is the magic port');
