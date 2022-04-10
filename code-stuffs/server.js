@@ -82,5 +82,34 @@ app.get('/recommendations', function(req, res) {
     })
 });
 
+app.get('/recommendations/genre', function(req,res) {
+    var genre_choice = req.query.genre_selecton;
+	var book_options =  'select categories from books_db;';
+	var books = "select * from books_db where categories = '" + genre_choice + "';";
+	db.task('get-everything', task => {
+		return task.batch([
+			task.any(book_options),
+			task.any(books)
+		]);
+	})
+		.then(info => {
+			res.render('views/recommendations',{
+				my_title: "Recommendations Page",
+				data: info[0],
+				genre_choice: genre_choice,
+				books: info[1][0].books
+			})
+		})
+		.catch(error => {
+			// display error message in case an error
+			request.flash('error', err);
+			response.render('views/recommendations', {
+				title: 'Recommendations Page',
+				data: '',
+				color: '',
+				color_msg: ''
+			})
+		});
+});
 app.listen(3000);
 console.log('3000 is the magic port');
