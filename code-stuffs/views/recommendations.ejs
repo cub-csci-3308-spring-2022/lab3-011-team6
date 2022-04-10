@@ -80,10 +80,10 @@
         </u>
       </h3>
       </div>
-      <select class="custom-select" name="genre_selection" onchange="getPlayerInformation(this)">
+      <select class="custom-select" name="genre_selection" >
 							 <option selected>Select Genre</option>
-							 <% if (genre_selection.length > 0) {
-                                genre_selection.forEach(function(book_options)
+							 <% if (book_options.length > 0) {
+                                book_options.forEach(function(books)
                                 { %>
                                     <option value = <%= book_options %>> </option>
                                 <% }); %>
