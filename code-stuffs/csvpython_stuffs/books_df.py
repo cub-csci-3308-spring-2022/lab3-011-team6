@@ -1,3 +1,4 @@
+# Anna - A quick script to test datasets and find relevant information
 import pandas as pd
 
 # title, authors, average rating, isbn, isbn13, language, num_pages, num ratings, publisher
