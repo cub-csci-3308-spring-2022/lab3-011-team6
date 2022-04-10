@@ -72,16 +72,45 @@ app.post('/register', function (req, res) {
             console.log('error', err);
         });
 });
+
 app.get('/home', function (req, res) {
+    var query = 'SELECT * FROM books_db;';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(query)
+        ]);
+    })
+    .then (info => {
+        console.log("INFO")
+        console.log(info)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items:info[0]
+        })
+    })
+    .catch(err => {
+        console.log("ERR")
+        console.log(err)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/home_temp', function (req, res) {
     res.render('home.ejs', {
+        my_title: "Home Page",
+        data:info[0]
     })
 });
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
     if(typeof(username) !== 'undefined'){
         var genre = 'SELECT genres FROM users_db WHERE username == ' + username + ';';
-        var books =  'SELECT title FROM books_db WHERE categories IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
-        var ratings = 'SELECT averagRating FROM books_db WHERE categries IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
+        var books =  'SELECT title FROM books_db WHERE categories IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
+        var ratings = 'SELECT averageRating FROM books_db WHERE categries IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
     
         db.task('get-everything', task => {
             return task.batch([
@@ -92,17 +121,14 @@ app.get('/recommendations', function(req, res) {
         })
 
         .then(info => {
-            for(let i = 0; i < books.length; i++){
-                var array = {title: books[i], rating: ratings[i]};
-                valuesCards.push(array);
-            }
-            res.render('recommendations.ejs',{
-                    my_title: "Recommendations Page",
-                    valuesCards: valuesCards,
-                })
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0]
             
+            })
         })
-
         .catch(err => {
             console.log('error', err);
         });
@@ -119,15 +145,13 @@ app.get('/recommendations', function(req, res) {
         })
 
         .then(info => {
-            for(let i = 0; i < books.length; i++){
-                var array = {title: books[i], rating: ratings[i]};
-                valuesCards.push(array);
-            }
-            res.render('recommendations.ejs',{
-                    my_title: "Recommendations Page",
-                    valuesCards: valuesCards,
-                })
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0]
             
+            })
         })
 
         .catch(err => {

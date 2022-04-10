@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS users_db
 
 CREATE TABLE IF NOT EXISTS books_db(
     title VARCHAR(30) PRIMARY KEY,
-    category VARCHAR(30)
-    averageRating FLOAT()
+    category VARCHAR(30),
+    averageRating TINYINT NOT NULL
 );
 
 INSERT INTO books_db(title, category, averageRating)
-VALUSE('Inward Journey', 'Medical', 3),
+VALUES('Inward Journey', 'Medical', 3),
 ('The Boston Directory', 'Boston'), 4.5;

@@ -1,6 +1,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
 <!DOCTYPE html>
     <head>
      <title>NextPage: Recommendations</title>
@@ -52,7 +55,6 @@
           text-align: center;
           background-color: #f1f1f1;
         }
-
         li {
           display: inline;
         }
@@ -101,41 +103,45 @@
             </div>
         </div>
     </nav>
-
     <div>
       <h1 style="text-align: center;">NextPage</h1>
-      <h2 style="text-align: center;">Recommendations</h2>
+      <h2 style="text-align: center;">Home</h2>
     </div>
       <br>
-    <div>
-      <h3 style="text-align: center;">
-        <u>
-          Based on your ratings, these books might be your next read!
-        </u>
-      </h3>
-      </div>
       
       <!-- Below this is the function to create multiple cards -->
     <div id="products-cards-container"></div>
           
     <script>
-      const container = document.getElementById('products-cards-container');
+      const valuesCards = [
+      {
+          title: 'title 1',
+          genre: 'fantasy'
+      },
+      {
+          title: 'title 2',
+          genre: 'sci fi'
+      },
+      {
+          title: 'title3',
+          genre: 'romance'
+      },
+      {
+          title: 'hello there',
+          genre: 'nonfiction'
+      }]
 
+      const container = document.getElementById('products-cards-container');
       function returnCards(valuesCards) {
-      return " <div class = \"card\">" + valuesCards.map(valuesCard => `
-      <div>
-          <div class="product-header">
-          <h4>${valuesCard.title}</h4>
+      return valuesCards.map(valuesCard => `
+          <div class="card">
+            <h4 class="card-title">${valuesCard.title}</h4>
+            <div class="main-description">${valuesCard.genre}</div>
           </div>
-          <div class="product-content">
-          <p>${valuesCard.rating}</p>
-          </div>
-          
-      </div>`).join('') + "</div>";
+      `).join('') + "</div>";
       }
 
       container.innerHTML = returnCards(valuesCards);
     </script>
-    <%- include('reviews_home'); -%>
     </body>
 </html>
