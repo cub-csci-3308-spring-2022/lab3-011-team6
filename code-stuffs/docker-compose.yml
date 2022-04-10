@@ -1,3 +1,4 @@
+# Al - setting up docker compose so we can access the website through our localhost port
 # ------------------------------------------------------------------------------
 # More resources related to this file:
 # [1] Overview   | https://docs.docker.com/compose/
