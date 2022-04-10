@@ -18,8 +18,24 @@ const dbConfig = {
 
 var db = pgp(dbConfig);
 
+// Anna - Creating unit test data
+const test_users = [
+    {
+        username: "arahn",
+        password: "pass123"
+    },
+    {
+        username: "caker",
+        password: "strongpass"
+    }
+];
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
+
+app.get("/", (req, res) => {
+    res.json({status: "success", message: "Welcome!"})
+})
 
 // Al - Login Get
 app.get('/login', function (req, res) {
@@ -108,7 +124,11 @@ app.get('/home', function (req, res) {
     });
 });
 
-<<<<<<< HEAD
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+    })
+});
+
 app.get('/recommendations', function(req, res) {
     res.render('recommendations',{
     })
@@ -136,14 +156,12 @@ app.get('/recommendations/genre', function(req,res) {
 			// display error message in case an error
 			request.flash('error', err);
 			response.render('views/recommendations', {
-				title: 'Recommendations Page',
+				my_title: 'Recommendations Page',
 				data: '',
-				color: '',
-				color_msg: ''
+				genre_choice: '',
+				books: ''
 			})
 		});
 });
-=======
->>>>>>> 34b6405260f007351b467f3c960369daec5f015e
 app.listen(3000);
 console.log('3000 is the magic port');
