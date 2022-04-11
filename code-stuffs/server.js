@@ -1,3 +1,4 @@
+// Anna - Set up server.js file
 var express = require('express'); //Ensure our express framework has been added
 var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
@@ -20,22 +21,29 @@ var db = pgp(dbConfig);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
+// Al - Login Get
 app.get('/login', function (req, res) {
     res.render('login.ejs', {
         message: "",
     })
 });
+
+// Al - Login Post
 app.post('/login', function (req, res) {
     var username = req.body.uname;
     var pass = req.body.pword;
 
     var select = "SELECT * FROM users_db WHERE username = '" + username + "' AND password = '" + pass + "';";
 });
+
+// Al - Register Get
 app.get('/register', function (req, res) {
     res.render('register.ejs', {
         message: "",
     })
 });
+
+// Al - Register Post
 app.post('/register', function (req, res) {
     var username = req.body.uname;
     var pass = req.body.pword;
@@ -73,6 +81,7 @@ app.post('/register', function (req, res) {
         });
 });
 
+// Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
     var query = 'SELECT * FROM books_db;';
 
@@ -99,12 +108,7 @@ app.get('/home', function (req, res) {
     });
 });
 
-app.get('/home_temp', function (req, res) {
-    res.render('home.ejs', {
-        my_title: "Home Page",
-        data:info[0]
-    })
-});
+//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in)
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
     if(typeof(username) !== 'undefined'){
@@ -134,14 +138,15 @@ app.get('/recommendations', function(req, res) {
         });
     }
     else{
-        var books = 'SELECT title FROM books_db ORDER BY averageRating DESC LIMIT 10;';
-        var ratings = 'SELECT averageRating FROM books_db ORDER BY averageRating DESC LIMIT 10;';
+        var books = 'SELECT title FROM books_db;';
+        
     
         db.task('get-everything', task => {
             return task.batch([
                 task.any(books),
-                task.any(ratings)
+
             ]);
+            
         })
 
         .then(info => {
@@ -150,15 +155,44 @@ app.get('/recommendations', function(req, res) {
             res.render('recommendations.ejs', {
                 my_title: "Recommendations Page",
                 items:info[0]
-            
             })
         })
 
         .catch(err => {
-            console.log('error', err);
+            console.log('error', err.stack);
         });
     }
 
+});
+
+app.get('/recommendations/genre', function(req,res) {
+    var genre_choice = req.query.genre_selecton;
+	var book_options =  'select categories from books_db;';
+	var books = "select * from books_db where categories = '" + genre_choice + "';";
+	db.task('get-everything', task => {
+		return task.batch([
+			task.any(book_options),
+			task.any(books)
+		]);
+	})
+		.then(info => {
+			res.render('views/recommendations',{
+				my_title: "Recommendations Page",
+				items: info[0],
+				genre_choice: genre_choice,
+				books: info[1][0].books
+			})
+		})
+		.catch(error => {
+			// display error message in case an error
+			request.flash('error', err);
+			response.render('views/recommendations', {
+				title: 'Recommendations Page',
+				items: '',
+				color: '',
+				color_msg: ''
+			})
+		});
 });
 
 app.listen(3000);
