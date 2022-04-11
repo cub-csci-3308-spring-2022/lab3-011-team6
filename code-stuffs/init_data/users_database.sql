@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS users_db
 (
     username VARCHAR (30) PRIMARY KEY,
     pass VARCHAR (16),
-    genres INT[]
+    genres VARCHAR[]
 )

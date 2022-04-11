@@ -38,20 +38,20 @@ button {
 <body id="grad1"  <%if(message!= ''){ %>
 	onload="myAlert(<%-message%>)"
 <%}%>>
-<form action="/home" method="get">
+<form action="/home" method="post">
 	<div class="imgcontainer">
 		<img src="nextpagelogo.png" alt="nextpagelogo" style="width:10%">
 	</div>
 	<div class="container">
 		<label for="uname"><b>Username</b></label><br>
-		<input type="username" id="uname" 
+		<input type="username" id="uname" name="username" 
 			placeholder="Username" required/><br><br>
 		
 		<label for="pword"><b>Password</b></label><br>
-		<input type="password" id="pword"
+		<input type="password" id="pword" name="password"
 			placeholder="Password" required/><br><br>
 		
-		<button href="home" type="submit">Login</button><br><br>
+		<button type="submit">Login</button><br><br>
 	
 		<a href="register">No account? Register now!</a>
 	</div>

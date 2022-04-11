@@ -20,27 +20,76 @@ var db = pgp(dbConfig);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
+app.get('/', function (req, res) {
+    res.redirect('/login');
+})
+
 app.get('/login', function (req, res) {
     res.render('login.ejs', {
         message: "",
     })
 });
 app.get('/home', function (req, res) {
-    var username = req.body.uname;
-    res.render('home.ejs', {
-        username: username,
-    })});
+    res.redirect('/login');
+})
+app.post('/home', function (req, res) {
+    console.log(req.body);
+    username = req.body.username;
+    var password = req.body.password;
+    console.log(typeof username);
+    console.log(typeof password);
+    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\' AND pass = \'' + password + '\';';
+    db.task('get-everything', task => {
+        return task.batch([
+            task.any(select),
+        ]);
+    })
+        .then(info => {
+            if (info != "") {
+                res.render('home.ejs', {
+                    username: username
+                })
+            }
+            else {
+                res.render('login.ejs', {
+                    message: "'No such account exists. Please try again or create a new account.'"
+                })
+            }
+        })
+        .catch(err => {
+            console.log('error', err);
+        });
+});
 app.get('/register', function (req, res) {
     res.render('register.ejs', {
         message: "",
     })
 });
 app.post('/register', function (req, res) {
-    var username = req.body.uname;
+    var uname = req.body.uname;
     var pass = req.body.pword;
+    var check1 = req.body.genre1;
+    var check2 = req.body.genre2;
+    var check3 = req.body.genre3;
+    var check4 = req.body.genre4;
+    var check5 = req.body.genre5;
 
-    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\';';
-    var insert_statement = 'INSERT INTO users_db (username, pass) VALUES (\'' + username + '\',\'' + pass + '\');';
+    var genre1 = "";
+    var genre2 = "";
+    var genre3 = "";
+    var genre4 = "";
+    var genre5 = "";
+
+    var genres = [];
+
+    if (typeof (check1) !== "undefined") { genres.push("\"Computers\"") }
+    if (typeof (check2) !== "undefined") { genres.push("\"Juvenille Fiction\"") }
+    if (typeof (check3) !== "undefined") { genres.push("\"Fiction\"") }
+    if (typeof (check4) !== "undefined") { genres.push("\"History\"") }
+    if (typeof (check5) !== "undefined") { genres.push("\"Business & Economics\"") }
+
+    var select = 'SELECT * FROM users_db WHERE username = \'' + uname + '\';';
+    var insert_statement = 'INSERT INTO users_db (username, pass, genres) VALUES (\'' + uname + '\',\'' + pass + '\',\'{' + genres + '}\')';
     db.task('get-everything', task => {
         return task.batch([
             task.any(select),
