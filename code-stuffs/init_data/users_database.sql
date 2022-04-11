@@ -10,7 +10,3 @@ CREATE TABLE IF NOT EXISTS books_db(
     title VARCHAR(30) PRIMARY KEY,
     category VARCHAR(30)
 );
-
-INSERT INTO books_db(category)
-VALUES('Medical'),
-('Boston');

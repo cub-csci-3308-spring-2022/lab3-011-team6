@@ -81,31 +81,12 @@
       </h3>
       </div>
       
-      <!-- Below this is the function to create multiple cards -->
-    <div id="products-cards-container"></div>
           
-    <script>
-      const container = document.getElementById('products-cards-container');
-
-      function returnCards(valuesCards) {
-      return " <div class = \"card\">" + valuesCards.map(valuesCard => `
-      <div>
-          <div class="product-header">
-          <h4>${valuesCard.title}</h4>
-          </div>
-          <div class="product-content">
-          <p>${valuesCard.rating}</p>
-          </div>
-          
-      </div>`).join('') + "</div>";
-      }
-
-      container.innerHTML = returnCards(valuesCards);
-    </script>
+    
     <%- include('reviews_home'); -%>
     <form action="/recommendations/genre">
       <label for="books">Or choose a specific genre of book you would like:</label>
-      <select name="books" id="books">
+      <select name="books" id="genre_selection">
         <option value="Computers">Computers</option>
         <option value="Juvenile Fiction">Juvenile Fiction</option>
         <option value="Fiction">Fiction</option>

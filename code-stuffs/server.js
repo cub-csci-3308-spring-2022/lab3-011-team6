@@ -18,8 +18,24 @@ const dbConfig = {
 
 var db = pgp(dbConfig);
 
+// Anna - Creating unit test data
+const test_users = [
+    {
+        username: "arahn",
+        password: "pass123"
+    },
+    {
+        username: "caker",
+        password: "strongpass"
+    }
+];
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
+
+app.get("/", (req, res) => {
+    res.json({status: "success", message: "Welcome!"})
+})
 
 // Al - Login Get
 app.get('/login', function (req, res) {
@@ -108,13 +124,12 @@ app.get('/home', function (req, res) {
     });
 });
 
-//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in)
+//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
     if(typeof(username) !== 'undefined'){
-        var genre = 'SELECT genres FROM users_db WHERE username == ' + username + ';';
-        var books =  'SELECT title FROM books_db WHERE categories IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
-        var ratings = 'SELECT averageRating FROM books_db WHERE categries IN ' + genre + ' ORDER BY averageRating DESC LIMIT 10;';
+        var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
+        var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
     
         db.task('get-everything', task => {
             return task.batch([
@@ -138,13 +153,11 @@ app.get('/recommendations', function(req, res) {
         });
     }
     else{
-        var books = 'SELECT title FROM books_db;';
-        
+        var booksAndGenres = 'SELECT * FROM books_db;';
     
         db.task('get-everything', task => {
             return task.batch([
-                task.any(books),
-
+                task.any(booksAndGenres),
             ]);
             
         })
@@ -165,10 +178,11 @@ app.get('/recommendations', function(req, res) {
 
 });
 
+//Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
     var genre_choice = req.query.genre_selecton;
-	var book_options =  'select categories from books_db;';
-	var books = "select * from books_db where categories = '" + genre_choice + "';";
+	var book_options =  'select categort from books_db;';
+	var books = "select * from books_db where category = '" + genre_choice + "';";
 	db.task('get-everything', task => {
 		return task.batch([
 			task.any(book_options),
@@ -187,13 +201,12 @@ app.get('/recommendations/genre', function(req,res) {
 			// display error message in case an error
 			request.flash('error', err);
 			response.render('views/recommendations', {
-				title: 'Recommendations Page',
+				my_title: 'Recommendations Page',
 				items: '',
-				color: '',
-				color_msg: ''
+				genre_choice: '',
+				books: ''
 			})
 		});
 });
-
 app.listen(3000);
 console.log('3000 is the magic port');
