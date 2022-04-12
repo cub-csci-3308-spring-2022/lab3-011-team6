@@ -180,27 +180,28 @@ app.get('/recommendations', function(req, res) {
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var genre_choice = req.query.genre_selecton;
-	var book_options =  'select categort from books_db;';
-	var books = "select * from books_db where category = '" + genre_choice + "';";
+    var genre_choice = req.body(genre_selection);
+	var book_options =  'select category from books_db;';
+	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
 	db.task('get-everything', task => {
 		return task.batch([
+            task.any(genre_choice),
 			task.any(book_options),
 			task.any(books)
 		]);
 	})
-		.then(info => {
-			res.render('views/recommendations',{
-				my_title: "Recommendations Page",
-				items: info[0],
-				genre_choice: genre_choice,
-				books: info[1][0].books
-			})
-		})
+	.then(info => {
+		res.render('recommendations.ejs',{
+			my_title: "Recommendations Page",
+			items: info[0],
+			genre_choice: genre_choice,
+			books: info[1][0].books
+	    })
+	})
 		.catch(error => {
 			// display error message in case an error
 			request.flash('error', err);
-			response.render('views/recommendations', {
+			response.render('recommendations.ejs', {
 				my_title: 'Recommendations Page',
 				items: '',
 				genre_choice: '',
