@@ -128,6 +128,7 @@ app.get('/home', function (req, res) {
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
     if(typeof(username) !== 'undefined'){
+        var book_genre = 'SELECT category FROM users_db'
         var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
         var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
     
