@@ -10,5 +10,5 @@ book_df3 = pd.read_csv("google_books_dataset.csv").drop("publishedDate", axis = 
 print(book_df3)
 
 for idx, row in book_df3.iterrows():
-    if ("Computers" in book_df3.loc[idx].at["categories"]):
+    if ("Geology" in book_df3.loc[idx].at["categories"]):
         print(book_df3.loc[idx].at["title"])

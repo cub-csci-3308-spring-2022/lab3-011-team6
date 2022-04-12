@@ -99,7 +99,7 @@ app.post('/register', function (req, res) {
 
 // Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
-    var query = 'SELECT * FROM books_db LIMIT 10;';
+    var query = 'SELECT * FROM books_db ORDER BY random() LIMIT 10;';
 
 	db.task('get-everything', task => {
         return task.batch([

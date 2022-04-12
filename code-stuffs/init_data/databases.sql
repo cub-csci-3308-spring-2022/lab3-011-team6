@@ -97,7 +97,17 @@ VALUES ('Inward Journey', 'Medical'),
 ('Adobe Premiere Pro 2.0', 'Computers'),
 ('Adobe After Effects CC Classroom in a Book (2014 Release)', 'Computers'),
 ('PDF Reference', 'Computers'),
-('Adobe ColdFusion Anthology', 'Computers')
+('Adobe ColdFusion Anthology', 'Computers'),
+('Brain Mystery Light and Dark', 'Philosophy'),
+('Readings in Philosophy of Religion', 'Philosophy'),
+('Queer Ecologies', 'Philosophy'),
+('Bulletin - New Mexico Bureau of Mines & Mineral Resources', 'Geology'),
+('Mineral Resources of Southwestern Oregon', 'Geology'),
+('State Geological Survey of Kansas', 'Geology'),
+('Bibiolography of North American Geology, 1933 and 1934', 'Geology'),
+('Mineral Resources of Alaska', 'Geology'),
+('The Pan-American Geologist', 'Geology'),
+('Bibliography of North American Geolgy, 1929-1939', 'Geology')
 ; 
 
 -- CREATE TABLE IF NOT EXISTS books_db (
