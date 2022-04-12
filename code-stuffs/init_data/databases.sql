@@ -6,20 +6,104 @@ CREATE TABLE IF NOT EXISTS users_db
     genres INT[]
 );
 
--- CREATE TABLE IF NOT EXISTS books_db (
---     title VARCHAR(30) PRIMARY KEY,
---     category VARCHAR(30)
--- );
-
--- INSERT INTO books_db(title, category)
--- VALUES ('Inward Journey', 'Medical'),
--- ('The Boston Directory', 'Boston')
--- ; 
-
 CREATE TABLE IF NOT EXISTS books_db (
     title VARCHAR(30) PRIMARY KEY,
-    categories VARCHAR (30)
+    category VARCHAR(30)
 );
--- COPY books_db
+
+INSERT INTO books_db(title, category)
+VALUES ('Inward Journey', 'Medical'),
+('The Boston Directory', 'Boston'),
+('Implementing the IT Balanced Scorecard', 'Computers'),
+('Social Software Engineering', 'Computers'),
+('Data Modeling Essentials', 'Computers'),
+('Sams Teach Yourself Perl in 21 Days', 'Computers'),
+('Science and the Riddle of Consciousness', 'Computers'),
+('The Physics of VLSI Systems', 'Computers'),
+('The Complete Guide to Blender Graphics', 'Computers'),
+('Academic Press Dictionary of Science and Technology', 'Computers'),
+('Software Engineering Handbook', 'Computers'),
+('Data Science on the Google Cloud Platform', 'Computers'),
+('Data Science and Knowledge Engineering for Sensing Decision Support', 'Computers'),
+('Business Data Processing', 'Computers'),
+('Cryptographic Hardware and Embedded Systems', 'Computers'),
+('Selected Areas in Cryptography', 'Computers'),
+('Text Processing in Python', 'Computers'),
+('Python in a Nutshell', 'Computers'),
+('Programming Python', 'Computers'),
+('Mastering Python for Networking and Security', 'Computers'),
+('SAS Viya', 'Computers'),
+('Python Essential Reference', 'Computers'),
+('Python Programming for Arduino', 'Computers'),
+('Effective Python', 'Computers'),
+('Programming with Python', 'Computers'),
+('Game Programming with Python, Lua, and Ruby', 'Computers'),
+('Python Web Scraping Cookbook', 'Computers'),
+('Topics in Cryptology', 'Computers'),
+('Python All-in-One for Dummies', 'Computers'),
+('Understanding the Interactive Digital Media Marketplace: Frameworks, Platforms, Communities, and Issues', 'Computers'),
+('Programming Amazon Web Services', 'Computers'),
+('Structured Programming with COBOL Examples', 'Computers'),
+('Concurrent Programming on Windows', 'Computers'),
+('Module-2 Programming', 'Computers'),
+('Dictionary of Acronyms and Technical Abbreviations', 'Computers'),
+('Smart Phone and Next Generation Mobile Computing', 'Computers'),
+('Advances in Information Security and Assurance', 'Computers'),
+('The Official (ISC)2 Guide to the SSCP CBK', 'Computers'),
+('NET Security and Cryptography', 'Computers'),
+('Maximum Windows 2000 Security', 'Computers'),
+('Information Security and Cryptology - ICISC 2011', 'Computers'),
+('Mastering Windows XP Home Edition', 'Computers'),
+('Special Edition Using Filemaker 8', 'Computers'),
+('Knowledge-Based Intelligent Information and Engineering Systems', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('Alan Simpsons Windows Vista Bible', 'Computers'),
+('How to do Everything With Vista Bible', 'Computers'),
+('Microprocessors, PC Hardware, and Interfacing', 'Computers'),
+('Advances in Computing and Commuications, Part IV', 'Computers'),
+('Apple TV Portable Genuis', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('Advances in Cryptology - EUROCRYPT 2021', 'Computers'),
+('Beginning Blender', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('The Color Correction Handbook', 'Computers'),
+('The Art and Science of Diital Compositing', 'Computers'),
+('Programming Android', 'Computers'),
+('Raspberry Pi Android Projects', 'Computers'),
+('Unlocking Android', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('iPhone: The Missing Manual', 'Computers'),
+('Beginning iPhone Development', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('Beginning iPhone Development with Swift', 'Computers'),
+('Beginning iPhone Development with Swift 3', 'Computers'),
+('Beginning iPhone Development with Swift 4', 'Computers'),
+('Beginning iPhone 4 Development', 'Computers'),
+('iPhone Advanced Projects', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('iPhone Fully Loaded', 'Computers'),
+('The iPhone Book', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('Android Mobile Computing Using Samsung Tablets and Smartphones Running Android 2.3', 'Computers'),
+('My Samsung Galaxy S5', 'Computers'),
+('My Samsung Galaxy S4', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('My Samsung Galaxy Tab 4', 'Computers'),
+('How to Do Everything Samsung Galaxy Tab', 'Computers'),
+('The PC and Gadget Help Desk', 'Computers'),
+('Android Tips and Tricks', 'Computers'),
+('Teach Yourself VISUALLY Android Phones and Tablets', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('The Healthy PC: Preventative Care, Home Remedies, and Green Computing, 2nd Edition', 'Computers'),
+('X Internet', 'Computers'),
+('Internet Management', 'Computers'),
+('Datacasting', 'Computers'),
+('Security Technologies for the World Wide Web', 'Computers'),
+('Web Services', 'Computers'),('Implementing the IT Balanced Scorecard', 'Computers'),
+('CJKV Information Processing', 'Computers'),
+('Adobe Premiere Pro CS3', 'Computers'),
+('Adobe Premiere Pro CS4 Classroom in a Book', 'Computers'),
+('Adobe Premiere Pro 2.0', 'Computers'),
+('Adobe After Effects CC Classroom in a Book (2014 Release)', 'Computers'),
+('PDF Reference', 'Computers'),
+('Adobe ColdFusion Anthology', 'Computers')
+; 
+
+-- CREATE TABLE IF NOT EXISTS books_db (
+--     title VARCHAR(30) PRIMARY KEY,
+--     categories VARCHAR (30)
+-- );
+-- -- COPY books_db
 -- FROM 'google_books_dataset.csv'
 -- DELIMITER ',';

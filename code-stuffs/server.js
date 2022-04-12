@@ -2,60 +2,19 @@
 var express = require('express'); //Ensure our express framework has been added
 var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
-const fs = require("fs"); // Allowing us to import data from csv files
-const fastcsv = require("fast-csv");
-const Pool = require("pg").Pool;
-
-let stream = fs.createReadStream("init_data/google_books_dataset.csv");
-let csvData = [];
-let csvStream = fastcsv
-    .parse()
-    .on("data", function(data)
-    {
-        csvData.push(data);
-    })
-    .on("end", function()
-    {
-        // remove the first line (the header)
-        csvData.shift();
-        const dbConfig = {
-            host: 'db',
-            port: 5432,
-            database: 'project-db',
-            user: 'postgres',
-            password: 'pwd'
-        };
-        const query = "INSERT INTO category (title, categories) VALUES ($1, $2);";
-        dbConfig.connect((err, client, done) => {
-            if (err) throw err;
-            try {
-                csvData.forEach(row => {
-                    client.query(query, row, (err, res) => {
-                        if (err) {
-                            console.log(err.stack);
-                        } else {
-                            console.log("inserted " + res.rowCount + " row: ", row);
-                        }
-                    });
-                });
-            } finally {
-                done();
-            }
-        })
-    });
-    stream.pipe(csvStream);
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-//Create Database Connection
-var pgp = require('pg-promise');
 
-// const dbConfig = {
-//     host: 'db',
-//     port: 5432,
-//     database: 'project-db',
-//     user: 'postgres',
-//     password: 'pwd'
-// };
+//Create Database Connection
+var pgp = require('pg-promise')();
+
+const dbConfig = {
+    host: 'db',
+    port: 5432,
+    database: 'project-db',
+    user: 'postgres',
+    password: 'pwd'
+};
 
 var db = pgp(dbConfig);
 
@@ -100,7 +59,7 @@ app.get('/register', function (req, res) {
     })
 });
 
-// Al, Anna - Register Post
+// Al - Register Post
 app.post('/register', function (req, res) {
     var username = req.body.uname;
     var pass = req.body.pword;
@@ -140,7 +99,7 @@ app.post('/register', function (req, res) {
 
 // Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
-    var query = 'SELECT * FROM books_db;';
+    var query = 'SELECT * FROM books_db LIMIT 10;';
 
 	db.task('get-everything', task => {
         return task.batch([
@@ -163,6 +122,12 @@ app.get('/home', function (req, res) {
             items: ''
         })
     });
+});
+
+app.get('/search', function (req, res) {
+    res.render('search.ejs', {
+        message: "",
+    })
 });
 
 app.get('/profile', function(req, res) {
