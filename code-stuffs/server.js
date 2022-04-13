@@ -135,11 +135,13 @@ app.get('/profile', function(req, res) {
     })
 });
 
+//Abigail - Recommendations Get
 app.get('/recommendations', function(req, res) {
     res.render('recommendations',{
     })
 });
 
+//Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
     var genre_choice = req.query.genre_selecton;
 	var book_options =  'select categories from books_db;';

@@ -80,6 +80,14 @@
         </u>
       </h3>
       </div>
+      <select class="custom-select" name="genre_selection" >
+							 <option selected>Select Genre</option>
+							 <% if (book_options.length > 0) {
+                                book_options.forEach(function(books)
+                                { %>
+                                    <option value = <%= book_options %>> </option>
+                                <% }); %>
+                            <% } %>
       <div class="row">
         <div class="column">
           <div class="card">
