@@ -138,9 +138,8 @@ app.get('/profile', function(req, res) {
 
 //Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
-    var valuesCards = [];
     if(typeof(username) !== 'undefined'){
-        var book_genre = 'SELECT category FROM users_db'
+        var book_genre = 'SELECT category FROM books_db;';
         var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
         var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
     
@@ -167,10 +166,11 @@ app.get('/recommendations', function(req, res) {
     }
     else{
         var booksAndGenres = 'SELECT * FROM books_db;';
-    
+        var book_genre = 'SELECT category FROM books_db;';
         db.task('get-everything', task => {
             return task.batch([
                 task.any(booksAndGenres),
+                task.any(book_genre),
             ]);
             
         })
@@ -180,7 +180,8 @@ app.get('/recommendations', function(req, res) {
             console.log(info)
             res.render('recommendations.ejs', {
                 my_title: "Recommendations Page",
-                items:info[0]
+                items:info[0],
+                book_genre:info[1]
             })
         })
 
@@ -192,7 +193,7 @@ app.get('/recommendations', function(req, res) {
 });
 
 //Abigail - Recommendations Get Genre
-/*app.get('/recommendations/genre', function(req,res) {
+app.get('/recommendations/genre', function(req,res) {
     var genre_choice = req.body(genre_selection);
 	var book_options =  'select category from books_db;';
 	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
@@ -221,6 +222,6 @@ app.get('/recommendations', function(req, res) {
 				books: ''
 			})
 		});
-});*/
+});
 app.listen(3000);
 console.log('3000 is the magic port');
