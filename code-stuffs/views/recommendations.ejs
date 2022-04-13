@@ -108,10 +108,23 @@
                                   You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
         <tr>
           <th>Title</th>
-          <td><% if(book_genre){var title = bookinfo.title;} %><%- title %></td>
+          <td><% if(bookinfo){var title = bookinfo.title;} %><%- title %></td>
         </tr>
       </table>
     </div>
+
+
+    <% if (bookinfo) {
+      bookinfo.forEach(function(item){%>
+        <div class='card'>
+          <div class="card-body">
+            <h5 class='card-title'>
+                Title: <%- item.title %>
+            </h5>
+          </div>
+        </div>
+      <%})
+    }%>
 
 
 

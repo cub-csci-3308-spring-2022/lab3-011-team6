@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users_db
 );
 
 CREATE TABLE IF NOT EXISTS books_db (
-    title VARCHAR(30) PRIMARY KEY,
+    title VARCHAR(150) PRIMARY KEY,
     category VARCHAR(30)
 );
 
@@ -16,5 +16,8 @@ VALUES ('Inward Journey', 'Medical'),
 ('The Boston Directory', 'Boston'),
 ('Implementing the IT Balanced Scorecard', 'Computers'),
 ('Social Software Engineering', 'Computers'),
-('Data Modeling Essentials', 'Computers')
+('Data Modeling Essentials', 'Computers'),
+('Sams Teach Yourself Perl in 21 Days', 'Computers'),
+('Science and the Riddle of Consciousness', 'Computers'),
+('The Physics of VLSI Systems', 'Computers')
 ; 

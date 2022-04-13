@@ -21,41 +21,7 @@
       </head>
   
       <body>
-          <nav class="navbar navbar-expand-lg navbar-success bg-success">
-              <a class="navbar-brand" href="home.html">
-                  <img class="rounded"
-                      src="nextpagelogo.png" alt="" width="40" height="40">
-              </a>
-              <div class="collapse navbar-collapse" id="navbarText">
-                  <ul class="navbar-nav mr-auto">
-                  </ul>
-                  <div class="form-inline my-2 my-lg-0">
-                      <div class="form-inline my-2 my-lg-0">
-                          <div class="container">
-                              <div class="dropdown">
-                                  <a href="#" id="imageDropdown" data-toggle="dropdown">
-                                      <img src="http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" width=40" height="40" id="myBtn">
-                                  </a>
-                                  <ul class="dropdown-menu" role="menu" aria-labelledby="imageDropdown">
-                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/home">Home</a></li>
-                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile">User Profile</a>
-                                      </li>
-                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/recommendations">Recommendations</a>
-                                      </li>
-                                      <li role="presentation" class="divider"></li>
-                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Logout</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                        </div>
-                        <form id="form">
-                            <input type="search" id="query" name="q" placeholder="Search...">
-                            <button>Search</button>
-                        </form>
-                    </div>
-                </div>
-      </div>
-    </nav>
+        <%- include('header'); -%>
         <center><img
           class="rounded-circle"
           src="https://windsorpreschool.com/wp-content/uploads/2017/12/generic-profile-image-7.jpg"
@@ -68,10 +34,7 @@
           Update Your Preferences <br>
            </center>
           </h1>
-        <center><a class="btn btn-primary" href="#" role="button">Saved Books</a>
-          <button class="btn btn-primary" type="submit">Saved Authors</button>
-          <input class="btn btn-primary" type="button" value="Settings">
-          <input class="btn btn-primary" type="submit" value="Help">
+        <center>
           <input class="btn btn-primary" type="reset" value="Logout">
         </center>
   </body>
