@@ -140,6 +140,7 @@ app.get('/profile', function(req, res) {
 app.get('/recommendations', function(req, res) {
     var valuesCards = [];
     if(typeof(username) !== 'undefined'){
+        var book_genre = 'SELECT category FROM users_db'
         var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
         var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
     
@@ -191,7 +192,7 @@ app.get('/recommendations', function(req, res) {
 });
 
 //Abigail - Recommendations Get Genre
-app.get('/recommendations/genre', function(req,res) {
+/*app.get('/recommendations/genre', function(req,res) {
     var genre_choice = req.body(genre_selection);
 	var book_options =  'select category from books_db;';
 	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
@@ -220,6 +221,6 @@ app.get('/recommendations/genre', function(req,res) {
 				books: ''
 			})
 		});
-});
+});*/
 app.listen(3000);
 console.log('3000 is the magic port');

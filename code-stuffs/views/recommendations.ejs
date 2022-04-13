@@ -84,10 +84,17 @@
           
     
     <%- include('reviews_home'); -%>
-    <form action = "/recommendations/genre">
+    <form action = "/recommendations/genre" method="get">
       <label for = "books">Or choose a specific genre of book you would like:</label>
       <select name = "books" id="genre_selection">
-        <option value = "Computers">Computers</option>
+        if (book_genre) {
+          var options = '';
+          book_genre.forEach(function(item){
+            options += "<option value=" + item.id + ">" + item.category + "</option>"
+          }); %>
+        <%- options %>
+        <% } %>
+        <!-- <option value = "Computers">Computers</option>
         <option value = "Juvenile Fiction">Juvenile Fiction</option>
         <option value = "Fiction">Fiction</option>
         <option value = "History">History</option>
@@ -106,7 +113,7 @@
         <option value = "Science">Science</option>
         <option value = "Music">Music</option>
         <option value = "Geology">Geology</option>
-        <option value = "Philosophy">Philosophy</option>
+        <option value = "Philosophy">Philosophy</option> -->
       </select>
       <br><br>
       <input type="submit" value="Submit">
