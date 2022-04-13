@@ -84,9 +84,10 @@
           
     
     <%- include('reviews_home'); -%>
-    <form action = "/recommendations/genre" method="get">
+    <form class="form"action = "/recommendations" method="get">
       <label for = "books">Or choose a specific genre of book you would like:</label>
-      <select name = "books" id="genre_selection">
+      <select class="custom-select"name = "books" onchange="this.form.submit()">
+        <option selected>Select Genre</option>
         <%
         if (book_genre) {
           var options = '';
@@ -96,11 +97,23 @@
         <%- options %>
         <% } %>
       </select>
-      <br><br>
-      <input type = "submit" value = "Submit">
     </form>
-    <script>
-      var chosen_genre;
-    </script>
+    
+
+
+    <div class="table-responsive">
+      <table class="table">
+        <!-- TODO: Set Player Information
+                              If a player has been selected, fill in their information in each of the fields below.
+                                  You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
+        <tr>
+          <th>Title</th>
+          <td><% if(book_genre){var title = bookinfo.title;} %><%- title %></td>
+        </tr>
+      </table>
+    </div>
+
+
+
     </body>
 </html>

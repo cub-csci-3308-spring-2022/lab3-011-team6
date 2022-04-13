@@ -5,7 +5,6 @@ var bodyParser = require('body-parser'); //Ensure our body-parser tool has been 
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-
 //Create Database Connection
 var pgp = require('pg-promise')();
 
@@ -166,7 +165,7 @@ app.get('/recommendations', function(req, res) {
         });
     }
     else{
-        var booksAndGenres = 'SELECT * FROM books_db LIMIT 10;';
+        var booksAndGenres = 'SELECT * FROM books_db;';
         var book_genre = 'SELECT category FROM books_db;';
         db.task('get-everything', task => {
             return task.batch([
@@ -195,34 +194,32 @@ app.get('/recommendations', function(req, res) {
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var genre_choice = req.body.genre_selection;
-	var book_options =  'select category from books_db;';
-	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
+    var book_genre = 'SELECT category FROM books_db;';
+    var genre_choice = req.body.books;
+	var book = 'SELECT * FROM books_db WHERE category = \'' + genre_choice + '\' LIMIT 10;';
 	
     db.task('get-everything', task => {
 		return task.batch([
-            task.any(genre_choice),
+            task.any(book_genre),
 			task.any(book_options),
-			task.any(books)
+			task.any(book)
 		]);
 	})
 	.then(info => {
-		res.render('recommendations.ejs',{
+		res.render('pages/recommendations',{
 			my_title: "Recommendations Page",
-			items: info[0],
-			genre_choice: genre_choice,
-			books: info[1][0].books
+            bookinfo: data[1][0],
+            book_genre: data[0]
 	    })
 	})
 		.catch(error => {
-			// display error message in case an error
-			request.flash('error', err);
-			response.render('recommendations.ejs', {
-				my_title: 'Recommendations Page',
-				items: '',
-				genre_choice: '',
-				books: ''
-			})
+			console.log('error', err.stack);
+            req.flash('error', err);
+            res.render('pages/recommendations',{
+                my_title: "Recommendations Page",
+                bookinfo: '',
+                book_genre: ''
+            })
 		});
 });
 app.listen(3000);
