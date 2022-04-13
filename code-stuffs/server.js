@@ -99,7 +99,7 @@ app.post('/register', function (req, res) {
 
 // Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
-    var query = 'SELECT * FROM books_db;';
+    var query = 'SELECT * FROM books_db ORDER BY random() LIMIT 10;';
 
 	db.task('get-everything', task => {
         return task.batch([
@@ -122,6 +122,18 @@ app.get('/home', function (req, res) {
             items: ''
         })
     });
+});
+
+
+app.get('/search', function (req, res) {
+    res.render('search.ejs', {
+        message: "",
+    })
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+    })
 });
 
 //Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
