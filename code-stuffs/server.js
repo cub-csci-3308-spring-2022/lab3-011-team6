@@ -33,8 +33,10 @@ const test_users = [
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
-app.get("/", (req, res) => {
-    res.json({status: "success", message: "Welcome!"})
+var username;
+
+app.get('/', function (req, res) {
+    res.redirect('/login');
 })
 
 // Al - Login Get
@@ -43,13 +45,29 @@ app.get('/login', function (req, res) {
         message: "",
     })
 });
-
 // Al - Login Post
 app.post('/login', function (req, res) {
-    var username = req.body.uname;
-    var pass = req.body.pword;
-
-    var select = "SELECT * FROM users_db WHERE username = '" + username + "' AND password = '" + pass + "';";
+    username = req.body.username;
+    var password = req.body.password;
+    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\' AND pass = \'' + password + '\';';
+    db.task('get-everything', task => {
+        return task.batch([
+            task.any(select),
+        ]);
+    })
+        .then(info => {
+            if (info != "") {
+                res.redirect('/home');
+            }
+            else {
+                res.render('login.ejs', {
+                    message: "'No such account exists. Please try again or create a new account.'"
+                })
+            }
+        })
+        .catch(err => {
+            console.log('error', err);
+        });
 });
 
 // Al - Register Get
@@ -61,11 +79,30 @@ app.get('/register', function (req, res) {
 
 // Al - Register Post
 app.post('/register', function (req, res) {
-    var username = req.body.uname;
+    var uname = req.body.uname;
     var pass = req.body.pword;
+    var check1 = req.body.genre1;
+    var check2 = req.body.genre2;
+    var check3 = req.body.genre3;
+    var check4 = req.body.genre4;
+    var check5 = req.body.genre5;
 
-    var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\';';
-    var insert_statement = 'INSERT INTO users_db (username, pass) VALUES (\'' + username + '\',\'' + pass + '\');';
+    var genre1 = "";
+    var genre2 = "";
+    var genre3 = "";
+    var genre4 = "";
+    var genre5 = "";
+
+    var genres = [];
+
+    if (typeof (check1) !== "undefined") { genres.push("\"Computers\"") }
+    if (typeof (check2) !== "undefined") { genres.push("\"Juvenille Fiction\"") }
+    if (typeof (check3) !== "undefined") { genres.push("\"Fiction\"") }
+    if (typeof (check4) !== "undefined") { genres.push("\"History\"") }
+    if (typeof (check5) !== "undefined") { genres.push("\"Business & Economics\"") }
+
+    var select = 'SELECT * FROM users_db WHERE username = \'' + uname + '\';';
+    var insert_statement = 'INSERT INTO users_db (username, pass, genres) VALUES (\'' + uname + '\',\'' + pass + '\',\'{' + genres + '}\')';
     db.task('get-everything', task => {
         return task.batch([
             task.any(select),
@@ -73,8 +110,6 @@ app.post('/register', function (req, res) {
     })
         .then(info => {
             if (info == "") {
-                //console.log("NO EXIST");
-                //console.log(info);
                 db.task('get-everything', task => {
                     return task.batch([
                         task.any(insert_statement),
@@ -85,8 +120,6 @@ app.post('/register', function (req, res) {
                 })
             }
             else {
-                //console.log("EXISTS");
-                //console.log(info);
                 res.render('register.ejs', {
                     message: "'Account with that username already exists, try again.'"
                 })
@@ -96,7 +129,6 @@ app.post('/register', function (req, res) {
             console.log('error', err);
         });
 });
-
 // Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
     var query = 'SELECT * FROM books_db LIMIT 10;';
@@ -196,43 +228,120 @@ app.get('/search/:title', function (req, res) {
 
 app.get('/profile', function(req, res) {
     res.render('profile',{
+	    username: username,
     })
 });
 
-//Abigail - Recommendations Get
-app.get('/recommendations', function(req, res) {
-    res.render('recommendations',{
+app.get('/search', function (req, res) {
+    res.render('search.ejs', {
+        message: "",
     })
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+	    username: username
+    })
+});
+
+//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
+app.get('/recommendations', function(req, res) {
+    console.log("REC PAGE")
+    var booksAndGenres = 'SELECT * FROM books_db;';
+        var book_genre = 'SELECT DISTINCT category FROM books_db;';
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(booksAndGenres),
+                task.any(book_genre),
+            ]);
+            
+        })
+
+        .then(info => {
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        })
+
+        .catch(err => {
+            console.log('error', err.stack);
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        });
+});
+
+app.get('/recommendations/:genre', function(req, res) {
+    console.log("SELECT GENRE PAGE")
+    console.log(req.query, req.params);
+    var booksAndGenres = 'SELECT * FROM books_db;';
+        var book_genre = 'SELECT DISTINCT category FROM books_db;';
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(booksAndGenres),
+                task.any(book_genre),
+            ]);
+            
+        })
+
+        .then(info => {
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        })
+
+        .catch(err => {
+            console.log('error', err.stack);
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        });
 });
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var genre_choice = req.query.genre_selecton;
-	var book_options =  'select categories from books_db;';
-	var books = "select * from books_db where categories = '" + genre_choice + "';";
-	db.task('get-everything', task => {
+    console.log("REC GENRE 3")
+    var book_genre = 'SELECT DISTINCT category FROM books_db;';
+    var genre_choice = req.query.books;
+	var book = 'SELECT * FROM books_db WHERE category = \'' + genre_choice + '\' LIMIT 10;';
+	
+    db.task('get-everything', task => {
 		return task.batch([
-			task.any(book_options),
-			task.any(books)
+            task.any(book_genre),
+			task.any(book)
 		]);
 	})
-		.then(info => {
-			res.render('views/recommendations',{
-				my_title: "Recommendations Page",
-				data: info[0],
-				genre_choice: genre_choice,
-				books: info[1][0].books
-			})
-		})
+	.then(info => {
+		res.render('pages/recommendations',{
+			my_title: "Recommendations Page",
+            bookinfo: data[2][1],
+            book_genre: data[0]
+	    }) 
+	})
 		.catch(error => {
-			// display error message in case an error
-			request.flash('error', err);
-			response.render('views/recommendations', {
-				my_title: 'Recommendations Page',
-				data: '',
-				genre_choice: '',
-				books: ''
-			})
+			console.log('error', err.stack);
+            req.flash('error', err);
+            res.render('pages/recommendations',{
+                my_title: "Recommendations Page",
+                bookinfo: '',
+                book_genre: ''
+            })
 		});
 });
 app.listen(3000);

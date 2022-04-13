@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users_db
 (
     username VARCHAR (30) PRIMARY KEY,
     pass VARCHAR (16),
-    genres INT[]
+    genres VARCHAR[]
 );
 
 CREATE TABLE IF NOT EXISTS books_db (
