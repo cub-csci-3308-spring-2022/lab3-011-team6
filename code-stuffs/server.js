@@ -124,6 +124,7 @@ app.get('/home', function (req, res) {
     });
 });
 
+
 app.get('/search', function (req, res) {
     res.render('search.ejs', {
         message: "",
@@ -135,37 +136,88 @@ app.get('/profile', function(req, res) {
     })
 });
 
-//Abigail - Recommendations Get
+//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
-    res.render('recommendations',{
-    })
+    if(typeof(username) !== 'undefined'){
+        var book_genre = 'SELECT category FROM books_db;';
+        var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
+        var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
+    
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(genre),
+                task.any(books),
+                task.any(ratings)
+            ]);
+        })
+
+        .then(info => {
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0]
+            
+            })
+        })
+        .catch(err => {
+            console.log('error', err);
+        });
+    }
+    else{
+        var booksAndGenres = 'SELECT * FROM books_db;';
+        var book_genre = 'SELECT category FROM books_db;';
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(booksAndGenres),
+                task.any(book_genre),
+            ]);
+            
+        })
+
+        .then(info => {
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1]
+            })
+        })
+
+        .catch(err => {
+            console.log('error', err.stack);
+        });
+    }
+
 });
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var genre_choice = req.query.genre_selecton;
-	var book_options =  'select categories from books_db;';
-	var books = "select * from books_db where categories = '" + genre_choice + "';";
+    var genre_choice = req.body(genre_selection);
+	var book_options =  'select category from books_db;';
+	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
 	db.task('get-everything', task => {
 		return task.batch([
+            task.any(genre_choice),
 			task.any(book_options),
 			task.any(books)
 		]);
 	})
-		.then(info => {
-			res.render('views/recommendations',{
-				my_title: "Recommendations Page",
-				data: info[0],
-				genre_choice: genre_choice,
-				books: info[1][0].books
-			})
-		})
+	.then(info => {
+		res.render('recommendations.ejs',{
+			my_title: "Recommendations Page",
+			items: info[0],
+			genre_choice: genre_choice,
+			books: info[1][0].books
+	    })
+	})
 		.catch(error => {
 			// display error message in case an error
 			request.flash('error', err);
-			response.render('views/recommendations', {
+			response.render('recommendations.ejs', {
 				my_title: 'Recommendations Page',
-				data: '',
+				items: '',
 				genre_choice: '',
 				books: ''
 			})

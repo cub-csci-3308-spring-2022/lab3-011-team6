@@ -80,72 +80,24 @@
         </u>
       </h3>
       </div>
-      <select class="custom-select" name="genre_selection" >
-							 <option selected>Select Genre</option>
-							 <% if (book_options.length > 0) {
-                                book_options.forEach(function(books)
-                                { %>
-                                    <option value = <%= book_options %>> </option>
-                                <% }); %>
-                            <% } %>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            <h3>Book 1</h3>
-            <p>rating</p>
-          </div>
-        </div>
-        
-        <div class="column">
-          <div class="card">
-            <h3>Book 2</h3>
-            <p>rating</p>
-          </div>
-        </div>
+      
           
-        <div class="column">
-          <div class="card">
-            <h3>Book 3</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 4</h3>
-            <p>rating</p>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="column">
-          <div class="card">
-            <h3>Book 5</h3>
-            <p>rating</p>
-          </div>
-        </div>
-        
-        <div class="column">
-          <div class="card">
-            <h3>Book 6</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 7</h3>
-            <p>rating</p>
-          </div>
-        </div>
-          
-        <div class="column">
-          <div class="card">
-            <h3>Book 8</h3>
-            <p>rating</p>
-          </div>
-        </div>
-      </div>
+    
+    <%- include('reviews_home'); -%>
+    <form action = "/recommendations" method="get">
+      <label for = "books">Or choose a specific genre of book you would like:</label>
+      <select name = "books" id="genre_selection">
+        <%
+        if (book_genre) {
+          var options = '';
+          book_genre.forEach(function(item){
+            options += "<option value=" + item.id + ">" + item.category + "</option>"
+          }); %>
+        <%- options %>
+        <% } %>
+      </select>
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
     </body>
 </html>
