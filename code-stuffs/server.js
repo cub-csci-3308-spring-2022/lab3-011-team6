@@ -194,7 +194,7 @@ app.get('/recommendations', function(req, res) {
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var genre_choice = req.body(genre_selection);
+    var genre_choice = req.body.genre_selection;
 	var book_options =  'select category from books_db;';
 	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
 	db.task('get-everything', task => {
