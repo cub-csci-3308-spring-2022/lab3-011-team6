@@ -5,6 +5,7 @@ var bodyParser = require('body-parser'); //Ensure our body-parser tool has been 
 app.use(bodyParser.json());              // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+
 //Create Database Connection
 var pgp = require('pg-promise')();
 
@@ -165,7 +166,7 @@ app.get('/recommendations', function(req, res) {
         });
     }
     else{
-        var booksAndGenres = 'SELECT * FROM books_db;';
+        var booksAndGenres = 'SELECT * FROM books_db LIMIT 10;';
         var book_genre = 'SELECT category FROM books_db;';
         db.task('get-everything', task => {
             return task.batch([
@@ -197,7 +198,8 @@ app.get('/recommendations/genre', function(req,res) {
     var genre_choice = req.body.genre_selection;
 	var book_options =  'select category from books_db;';
 	var books = 'select * from books_db where category = \'' + genre_choice + '\';';
-	db.task('get-everything', task => {
+	
+    db.task('get-everything', task => {
 		return task.batch([
             task.any(genre_choice),
 			task.any(book_options),
