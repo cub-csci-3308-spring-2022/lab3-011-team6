@@ -1,3 +1,4 @@
+// Anna - Set up server.js file
 var express = require('express'); //Ensure our express framework has been added
 var app = express();
 var bodyParser = require('body-parser'); //Ensure our body-parser tool has been added
@@ -6,7 +7,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 //Create Database Connection
 var pgp = require('pg-promise')();
-var username = "";
+
 const dbConfig = {
     host: 'db',
     port: 5432,
@@ -17,6 +18,18 @@ const dbConfig = {
 
 var db = pgp(dbConfig);
 
+// Anna - Creating unit test data
+const test_users = [
+    {
+        username: "arahn",
+        password: "pass123"
+    },
+    {
+        username: "caker",
+        password: "strongpass"
+    }
+];
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
@@ -24,20 +37,17 @@ app.get('/', function (req, res) {
     res.redirect('/login');
 })
 
+// Al - Login Get
 app.get('/login', function (req, res) {
     res.render('login.ejs', {
         message: "",
     })
 });
-app.get('/home', function (req, res) {
-    res.redirect('/login');
-})
-app.post('/home', function (req, res) {
-    console.log(req.body);
+
+// Al - Login Post
+app.post('/login', function (req, res) {
     username = req.body.username;
     var password = req.body.password;
-    console.log(typeof username);
-    console.log(typeof password);
     var select = 'SELECT * FROM users_db WHERE username = \'' + username + '\' AND pass = \'' + password + '\';';
     db.task('get-everything', task => {
         return task.batch([
@@ -46,9 +56,7 @@ app.post('/home', function (req, res) {
     })
         .then(info => {
             if (info != "") {
-                res.render('home.ejs', {
-                    username: username
-                })
+                res.redirect('/home');
             }
             else {
                 res.render('login.ejs', {
@@ -60,11 +68,15 @@ app.post('/home', function (req, res) {
             console.log('error', err);
         });
 });
+
+// Al - Register Get
 app.get('/register', function (req, res) {
     res.render('register.ejs', {
         message: "",
     })
 });
+
+// Al - Register Post
 app.post('/register', function (req, res) {
     var uname = req.body.uname;
     var pass = req.body.pword;
@@ -115,6 +127,80 @@ app.post('/register', function (req, res) {
         .catch(err => {
             console.log('error', err);
         });
+});
+// Anna - Home Get (autopopulates cards)
+app.get('/home', function (req, res) {
+    var query = 'SELECT * FROM books_db ORDER BY random() LIMIT 10;';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(query)
+        ]);
+    })
+    .then (info => {
+        console.log("INFO")
+        console.log(info)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items:info[0]
+        })
+    })
+    .catch(err => {
+        console.log("ERR")
+        console.log(err)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/search', function (req, res) {
+    res.render('search.ejs', {
+        message: "",
+    })
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+    })
+});
+
+//Abigail - Recommendations Get
+app.get('/recommendations', function(req, res) {
+    res.render('recommendations',{
+    })
+});
+
+//Abigail - Recommendations Get Genre
+app.get('/recommendations/genre', function(req,res) {
+    var genre_choice = req.query.genre_selecton;
+	var book_options =  'select categories from books_db;';
+	var books = "select * from books_db where categories = '" + genre_choice + "';";
+	db.task('get-everything', task => {
+		return task.batch([
+			task.any(book_options),
+			task.any(books)
+		]);
+	})
+		.then(info => {
+			res.render('views/recommendations',{
+				my_title: "Recommendations Page",
+				data: info[0],
+				genre_choice: genre_choice,
+				books: info[1][0].books
+			})
+		})
+		.catch(error => {
+			// display error message in case an error
+			request.flash('error', err);
+			response.render('views/recommendations', {
+				my_title: 'Recommendations Page',
+				data: '',
+				genre_choice: '',
+				books: ''
+			})
+		});
 });
 app.listen(3000);
 console.log('3000 is the magic port');
