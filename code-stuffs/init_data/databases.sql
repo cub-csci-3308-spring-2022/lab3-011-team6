@@ -13,13 +13,8 @@ CREATE TABLE IF NOT EXISTS books_db (
 
 INSERT INTO books_db(title, category)
 VALUES ('Inward Journey', 'Medical'),
-('The Boston Directory', 'Boston')
+('The Boston Directory', 'Boston'),
+('Implementing the IT Balanced Scorecard', 'Computers'),
+('Social Software Engineering', 'Computers'),
+('Data Modeling Essentials', 'Computers')
 ; 
-
--- CREATE TABLE IF NOT EXISTS books_db (
---     title VARCHAR(30) PRIMARY KEY,
---     category VARCHAR (30)
--- );
--- COPY books_db
--- FROM 'google_books_dataset.csv'
--- DELIMITER ',';
