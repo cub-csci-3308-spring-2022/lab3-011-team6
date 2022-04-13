@@ -33,6 +33,8 @@ const test_users = [
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/'));
 
+var username;
+
 app.get('/', function (req, res) {
     res.redirect('/login');
 })
@@ -226,6 +228,7 @@ app.get('/search/:title', function (req, res) {
 
 app.get('/profile', function(req, res) {
     res.render('profile',{
+	    username:username,
     })
 });
 
