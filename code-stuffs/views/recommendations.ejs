@@ -84,7 +84,7 @@
           
     
     <%- include('reviews_home'); -%>
-    <form class="form"action = "/recommendations" method="get">
+    <form class="form" action = "/recommendations/genre" method="get" onsubmit="getGenre(this)">
       <label for = "books">Or choose a specific genre of book you would like:</label>
       <select class="custom-select"name = "books" onchange="this.form.submit()">
         <option selected>Select Genre</option>
@@ -129,4 +129,12 @@
 
 
     </body>
+
+    <script>
+      function getgenre(selectedObject)
+      {
+        document.getElementById("form").action='/recommendations/' + selectedObject.value;
+        document.getElementById("form").submit();
+      }
+    </script>
 </html>

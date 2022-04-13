@@ -168,6 +168,42 @@ app.get('/profile', function(req, res) {
 
 //Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
+    console.log("REC PAGE")
+    var booksAndGenres = 'SELECT * FROM books_db;';
+        var book_genre = 'SELECT DISTINCT category FROM books_db;';
+        db.task('get-everything', task => {
+            return task.batch([
+                task.any(booksAndGenres),
+                task.any(book_genre),
+            ]);
+            
+        })
+
+        .then(info => {
+            console.log("INFO")
+            console.log(info)
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        })
+
+        .catch(err => {
+            console.log('error', err.stack);
+            res.render('recommendations.ejs', {
+                my_title: "Recommendations Page",
+                items:info[0],
+                book_genre:info[1],
+                bookinfo:''
+            })
+        });
+});
+
+app.get('/recommendations/:genre', function(req, res) {
+    console.log("SELECT GENRE PAGE")
+    console.log(req.query, req.params);
     var booksAndGenres = 'SELECT * FROM books_db;';
         var book_genre = 'SELECT DISTINCT category FROM books_db;';
         db.task('get-everything', task => {
@@ -202,8 +238,9 @@ app.get('/recommendations', function(req, res) {
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
+    console.log("REC GENRE 3")
     var book_genre = 'SELECT DISTINCT category FROM books_db;';
-    var genre_choice = req.body.books;
+    var genre_choice = req.query.books;
 	var book = 'SELECT * FROM books_db WHERE category = \'' + genre_choice + '\' LIMIT 10;';
 	
     db.task('get-everything', task => {
