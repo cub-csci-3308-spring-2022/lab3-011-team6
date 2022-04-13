@@ -228,19 +228,13 @@ app.get('/search/:title', function (req, res) {
 
 app.get('/profile', function(req, res) {
     res.render('profile',{
-	    username: username,
+	    username: username
     })
 });
 
 app.get('/search', function (req, res) {
     res.render('search.ejs', {
         message: "",
-    })
-});
-
-app.get('/profile', function(req, res) {
-    res.render('profile',{
-	    username: username
     })
 });
 
