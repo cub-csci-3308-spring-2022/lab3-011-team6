@@ -129,7 +129,7 @@ app.post('/register', function (req, res) {
 });
 // Anna - Home Get (autopopulates cards)
 app.get('/home', function (req, res) {
-    var query = 'SELECT * FROM books_db;';
+    var query = 'SELECT * FROM books_db LIMIT 10;';
 
 	db.task('get-everything', task => {
         return task.batch([
@@ -137,7 +137,7 @@ app.get('/home', function (req, res) {
         ]);
     })
     .then (info => {
-        console.log("INFO")
+        console.log("HOME THEN INFO")
         console.log(info)
         res.render('home.ejs', {
             my_title: "Home Page",
@@ -145,7 +145,7 @@ app.get('/home', function (req, res) {
         })
     })
     .catch(err => {
-        console.log("ERR")
+        console.log("HOME ERR")
         console.log(err)
         res.render('home.ejs', {
             my_title: "Home Page",
@@ -154,6 +154,80 @@ app.get('/home', function (req, res) {
     });
 });
 
+// app.get('/search', function (req, res) {
+//     console.log("SEARCH LANDING")
+//     res.render('search_landing.ejs', {
+//         message: "",
+//     })
+// });
+
+app.get('/search', function (req, res) {
+    console.log("SEARCH PAGE")
+    var title = req.query.search_input;
+
+    console.log("SEARCH TITLE: " + title);
+    var options = 'SELECT * FROM books_db;';
+    var query = 'SELECT * FROM books_db WHERE title LIKE \'' + title + '\';';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(options),
+            task.any(query)
+        ]);
+    })
+    .then (info => {
+        console.log("SEARCH THEN INFO")
+        console.log(info)
+        res.render('search.ejs', {
+            my_title: "Search Page",
+            items:info[1]
+        })
+    })
+    .catch(err => {
+        console.log("SEARCH ERR")
+        console.log(err)
+        res.render('search.ejs', {
+            my_title: "Search Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/search/:title', function (req, res) {
+    console.log("SEARCH PAGE TITLE", req.query, req.params)
+    var title = req.query.q;
+    console.log("SEARCH TITLE: " + title);
+    var options = 'SELECT * FROM books_db;';
+    var query = 'SELECT * FROM books_db WHERE title LIKE \'%' + title + '%\';';
+
+	db.task('get-everything', task => {
+        return task.batch([
+            task.any(options),
+            task.any(query)
+        ]);
+    })
+    .then (info => {
+        console.log("SEARCH THEN INFO")
+        console.log(info)
+        res.render('search.ejs', {
+            my_title: "Search Page",
+            items:info[1]
+        })
+    })
+    .catch(err => {
+        console.log("SEARCH ERR")
+        console.log(err)
+        res.render('search.ejs', {
+            my_title: "Search Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+    })
+});
 
 app.get('/search', function (req, res) {
     res.render('search.ejs', {
@@ -163,6 +237,7 @@ app.get('/search', function (req, res) {
 
 app.get('/profile', function(req, res) {
     res.render('profile',{
+	    username: username,
     })
 });
 
