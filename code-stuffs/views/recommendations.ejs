@@ -100,7 +100,14 @@
       <input type = "submit" value = "Submit">
     </form>
     <script>
-      var chosen_genre;
+      <tr>
+    <% genre_choice.forEach(item => { %>
+      <td><%= item.title %></td>
+      <td><%= item.category %></td>
+  </tr>
+
+<% }) %>
+      </table>
     </script>
     </body>
 </html>
