@@ -43,7 +43,6 @@ app.get('/login', function (req, res) {
         message: "",
     })
 });
-
 // Al - Login Post
 app.post('/login', function (req, res) {
     username = req.body.username;
@@ -170,6 +169,70 @@ app.get('/profile', function(req, res) {
 app.get('/recommendations', function(req, res) {
     res.render('recommendations',{
     })
+    .then (info => {
+        console.log("INFO")
+        console.log(info)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items:info[0]
+        })
+    })
+    .catch(err => {
+        console.log("ERR")
+        console.log(err)
+        res.render('home.ejs', {
+            my_title: "Home Page",
+            items: ''
+        })
+    });
+});
+
+app.get('/search', function (req, res) {
+    res.render('search.ejs', {
+        message: "",
+    })
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile',{
+    })
+});
+
+//Abigail - Recommendations Get
+app.get('/recommendations', function(req, res) {
+    res.render('recommendations',{
+    })
+});
+
+//Abigail - Recommendations Get Genre
+app.get('/recommendations/genre', function(req,res) {
+    var genre_choice = req.query.genre_selecton;
+	var book_options =  'select categories from books_db;';
+	var books = "select * from books_db where categories = '" + genre_choice + "';";
+	db.task('get-everything', task => {
+		return task.batch([
+			task.any(book_options),
+			task.any(books)
+		]);
+	})
+		.then(info => {
+			res.render('views/recommendations',{
+				my_title: "Recommendations Page",
+				data: info[0],
+				genre_choice: genre_choice,
+				books: info[1][0].books
+			})
+		})
+		.catch(error => {
+			// display error message in case an error
+			request.flash('error', err);
+			response.render('views/recommendations', {
+				my_title: 'Recommendations Page',
+				data: '',
+				genre_choice: '',
+				books: ''
+			})
+		});
 });
 
 //Abigail - Recommendations Get Genre
