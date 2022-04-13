@@ -168,35 +168,8 @@ app.get('/profile', function(req, res) {
 
 //Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
-    if(typeof(username) !== 'undefined'){
-        var book_genre = 'SELECT category FROM books_db;';
-        var genre = 'SELECT category FROM users_db WHERE username = ' + username + ';';
-        var books =  'SELECT * FROM books_db WHERE category IN ' + genre + ' ORDER BY rating DESC LIMIT 10;';
-    
-        db.task('get-everything', task => {
-            return task.batch([
-                task.any(genre),
-                task.any(books),
-                task.any(ratings)
-            ]);
-        })
-
-        .then(info => {
-            console.log("INFO")
-            console.log(info)
-            res.render('recommendations.ejs', {
-                my_title: "Recommendations Page",
-                items:info[0]
-            
-            })
-        })
-        .catch(err => {
-            console.log('error', err);
-        });
-    }
-    else{
-        var booksAndGenres = 'SELECT * FROM books_db;';
-        var book_genre = 'SELECT category FROM books_db;';
+    var booksAndGenres = 'SELECT * FROM books_db;';
+        var book_genre = 'SELECT DISTINCT category FROM books_db;';
         db.task('get-everything', task => {
             return task.batch([
                 task.any(booksAndGenres),
@@ -225,13 +198,11 @@ app.get('/recommendations', function(req, res) {
                 bookinfo:''
             })
         });
-    }
-
 });
 
 //Abigail - Recommendations Get Genre
 app.get('/recommendations/genre', function(req,res) {
-    var book_genre = 'SELECT category FROM books_db;';
+    var book_genre = 'SELECT DISTINCT category FROM books_db;';
     var genre_choice = req.body.books;
 	var book = 'SELECT * FROM books_db WHERE category = \'' + genre_choice + '\' LIMIT 10;';
 	
@@ -244,7 +215,7 @@ app.get('/recommendations/genre', function(req,res) {
 	.then(info => {
 		res.render('pages/recommendations',{
 			my_title: "Recommendations Page",
-            bookinfo: data[1][0],
+            bookinfo: data[2][1],
             book_genre: data[0]
 	    }) 
 	})

@@ -1,5 +1,5 @@
 --DROP TABLE IF EXISTS users_db CASCADE;--
-CREATE TABLE IF NOT EXISTS users_db
+/*CREATE TABLE IF NOT EXISTS users_db
 (
     username VARCHAR (30) PRIMARY KEY,
     pass VARCHAR (16),
@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS books_db(
 
 INSERT INTO books_db(title, category)
 VALUES('Inward Journey', 'Medical'),
-('The Boston Directory', 'Boston')
+('The Boston Directory', 'Boston')*/
