@@ -238,7 +238,7 @@ app.get('/search', function (req, res) {
     })
 });
 
-//Cody - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
+//Cody + Abigail - Recommendations GET (autopopulates cards and determines if there is a user logged in. If there is no user logged in, it shows some overall recommendations)
 app.get('/recommendations', function(req, res) {
     console.log("REC PAGE")
     var booksAndGenres = 'SELECT * FROM books_db;';
