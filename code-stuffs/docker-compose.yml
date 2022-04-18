@@ -1,4 +1,6 @@
 # Al - setting up docker compose so we can access the website through our localhost port
+          # TO WHOM IT MAY CONCERN: Please elaborate on this in more detail in lecture. Setting this up only took changing a few lines from the lab, but the amount of tinkering and office hours I went to was unbelievable,
+            # and it inhibited our ability to proceed with the rest of the project - Al
 # ------------------------------------------------------------------------------
 # More resources related to this file:
 # [1] Overview   | https://docs.docker.com/compose/

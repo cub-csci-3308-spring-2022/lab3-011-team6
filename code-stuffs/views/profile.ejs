@@ -1,3 +1,4 @@
+<!-- Al  -->
 <!DOCTYPE html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -30,11 +31,37 @@
           height="200"
         /></center>
         <center><h1>
-          Welcome, ahad <br>
+          <!-- Dynamically changes based on user -->
+          Welcome, <%=username%> <br>
           Update Your Preferences <br>
+          
            </center>
           </h1>
         <center>
-          <input class="btn btn-primary" type="reset" value="Logout">
+          <!-- Creates a way for users to update their genre preferences and see their current ones -->
+          <form method="post" action="/profile">
+
+          <input type="checkbox" id="genres1" value="Computers", name="genres1" <%if(check1==true){%> checked <%}%>>
+          <label for="genres1">Computers</label><br>
+    
+          <input type="checkbox" id="genres2" value="Juvenile Fiction" name ="genres2" <%if(check2==true){%> checked <%}%>>
+          <label for="genres2">Juvenile Fiction</label><br>
+    
+          <input type="checkbox" id="genres3" value="Fiction" name="genres3" <%if(check3==true){%> checked <%}%>>
+          <label for="genres3">Fiction</label><br>
+    
+          <input type="checkbox" id="genres4" value="Boston" name="genres4" <%if(check4==true){%> checked <%}%>>
+          <label for="genres4">Boston</label><br>
+    
+          <input type="checkbox" id="genres5" value="Medical" name="genres5" <%if(check5==true){%> checked <%}%>>
+          <label for="genres5">Medical</label><br>
+          <!-- <input class="btn btn-primary" value="Logout" href="login"> -->
+          <button class="btn btn-primary" type="submit" id="updategenres" >Submit Genre Choices</button><br><br>
+        </form>
+
+
+          <form method="get" action="/login">
+          <button class="btn btn-primary" type="submit" id="logout" >Logout</button><br><br>
+        </form>
         </center>
   </body>
