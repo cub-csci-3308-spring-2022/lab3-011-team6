@@ -1,4 +1,4 @@
-// Al - confirming passwords match on the Registration Page
+// Al - all below functions for confirming password and alerting user
 function confirmPassword(){
 	var password = document.getElementById("pword");
 	var confirm = document.getElementById("conpword");
