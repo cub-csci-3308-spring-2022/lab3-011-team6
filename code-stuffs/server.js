@@ -40,7 +40,7 @@ var check3;
 var check4;
 var check5;
 
-// Al - Just a quick redirect
+/* Al - Just a quick redirect
 app.get('/', function (req, res) {
     var username;
     var check1;
@@ -49,6 +49,12 @@ app.get('/', function (req, res) {
     var check4;
     var check5;
     res.redirect('/login');
+})
+*/
+
+//For first test case
+app.get("/", (req, res) => {
+    res.json({status: "success", message: "Welcome!"})
 })
 
 // Al - Login Get (Upon reaching this page, all variables are reset)
