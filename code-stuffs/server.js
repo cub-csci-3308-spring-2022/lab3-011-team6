@@ -369,7 +369,7 @@ app.get('/recommendations', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                //bookinfo: ''
+                bookinfo: ''
             })
         })
 
@@ -379,7 +379,7 @@ app.get('/recommendations', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                //bookinfo: ''
+                bookinfo: ''
             })
         });
 });
@@ -389,10 +389,13 @@ app.get('/recommendations/:genre', function (req, res) {
     console.log(req.query, req.params);
     var booksAndGenres = 'SELECT * FROM books_db;';
     var book_genre = 'SELECT DISTINCT category FROM books_db;';
+    var genre_choice = req.query.books;
+    var book = 'SELECT * FROM books_db WHERE category = \'' + genre_choice + '\' LIMIT 10;';
     db.task('get-everything', task => {
         return task.batch([
             task.any(booksAndGenres),
             task.any(book_genre),
+            task.any(book),
         ]);
 
     })
@@ -404,7 +407,7 @@ app.get('/recommendations/:genre', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                //bookinfo: ''
+                bookinfo: info[2],
             })
         })
 
@@ -414,7 +417,7 @@ app.get('/recommendations/:genre', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                //bookinfo: ''
+                bookinfo: info[2],
             })
         });
 });

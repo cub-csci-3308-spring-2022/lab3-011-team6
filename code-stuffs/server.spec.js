@@ -18,16 +18,28 @@ describe("Server!", () => {
           done();
         });
     });
-});
 
-//Abigail Sullivan - db test case
-it('tests book_db connection', done => {
-  books_db.connection.connect ((err, result) => {
-      if(err){
-          done(err);
-          return;
-      }
-      expect(result).to.equal("books_db connecttion successful.");
-      done();
+
+  //Abigail Sullivan - db test case
+  it('tests book_db connection', done => {
+    books_db.connection.connect ((err, result) => {
+        if(err){
+            done(err);
+            return;
+        }
+        expect(result).to.equal("books_db connecttion successful.");
+        done();
+    });
+  });
+
+  //Cody Aker - recommendation test case
+  it('tests if recommendations page has any errors (status code should be 200)', done => {
+    chai
+      .request(server)
+      .get("/recommendations")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
   });
 });
