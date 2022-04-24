@@ -19,3 +19,15 @@ describe("Server!", () => {
         });
     });
 });
+
+//Abigail Sullivan - db test case
+it('tests book_db connection', done => {
+  books_db.connection.connect ((err, result) => {
+      if(err){
+          done(err);
+          return;
+      }
+      expect(result).to.equal("books_db connecttion successful.");
+      done();
+  });
+});
