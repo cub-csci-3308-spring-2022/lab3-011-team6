@@ -363,7 +363,7 @@ app.get('/recommendations', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                bookinfo: ''
+                //bookinfo: ''
             })
         })
 
@@ -373,7 +373,7 @@ app.get('/recommendations', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                bookinfo: ''
+                //bookinfo: ''
             })
         });
 });
@@ -398,7 +398,7 @@ app.get('/recommendations/:genre', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                bookinfo: ''
+                //bookinfo: ''
             })
         })
 
@@ -408,7 +408,7 @@ app.get('/recommendations/:genre', function (req, res) {
                 my_title: "Recommendations Page",
                 items: info[0],
                 book_genre: info[1],
-                bookinfo: ''
+                //bookinfo: ''
             })
         });
 });
